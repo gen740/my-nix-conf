@@ -21,7 +21,25 @@
   networking.hostName = "gen740";
 
   nix = {
-    linux-builder.enable = true;
+    linux-builder = {
+      enable = true;
+      maxJobs = 6;
+      config = {
+        virtualisation = {
+          darwin-builder = {
+            diskSize = 200 * 1024;
+            memorySize = 18 * 1024;
+          };
+          cores = 7;
+        };
+      };
+    };
+    settings = {
+      trusted-users = [
+        "gen"
+        "@admin"
+      ];
+    };
   };
 
   fonts.packages = with pkgs; [
