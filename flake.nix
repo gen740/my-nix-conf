@@ -40,17 +40,24 @@
 
       flake = {
         mkHomeConfigurations =
-          { username, pkgs, ... }:
+          {
+            username,
+            pkgs,
+            extraModules,
+            ...
+          }:
           home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            modules = [
-              ./home-manager/home.nix
-              {
-                home = {
-                  username = username;
-                };
-              }
-            ];
+            modules =
+              [
+                ./home-manager/home.nix
+                {
+                  home = {
+                    username = username;
+                  };
+                }
+              ]
+              ++ extraModules;
           };
 
         darwinConfigurations = {
