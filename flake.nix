@@ -35,6 +35,7 @@
         "aarch64-darwin"
         "aarch64-linux"
         "x86_64-linux"
+        "x86_64-darwin"
       ];
 
       flake = {
@@ -54,6 +55,29 @@
                   '';
                 };
               }
+            ];
+            specialArgs = {
+              inputs = inputs;
+            };
+          };
+        };
+
+        darwinConfigurationsX86 = {
+          "gen740" = nix-darwin.lib.darwinSystem {
+            system = "x86_64-darwin";
+            modules = [
+              home-manager.darwinModules.home-manager
+              ./home/gen/home.nix
+              # ./home/gen/macosApps.nix
+              # ./hardwares/darwin/configuration.nix
+              # {
+              #   home-manager.users.gen.home.shellAliases = {
+              #     switch-conf = ''
+              #       nix flake metadata --refresh "github:gen740/my-nix-conf?ref=main" && \
+              #       nix run -v -L --show-trace "github:gen740/my-nix-conf?ref=main#switchDarwinConfiguration"
+              #     '';
+              #   };
+              # }
             ];
             specialArgs = {
               inputs = inputs;
@@ -168,6 +192,18 @@
                     }/bin/darwin-rebuild switch -v -L --show-trace --flake ${self.outPath}#gen740
                   '').outPath
                   + "/bin/switch-darwin-configuration";
+              };
+
+              switchDarwinConfigurationX86 = {
+                type = "app";
+                program =
+                  (pkgs.writeShellScriptBin "switch-darwin-configuration-x86" ''
+                    ${createSecretsIfNotExistsScript}
+                    exec sudo ${
+                      inputs.nix-darwin.packages.${system}.darwin-rebuild
+                    }/bin/darwin-rebuild switch -v -L --show-trace --flake ${self.outPath}#gen740
+                  '').outPath
+                  + "/bin/switch-darwin-configuration-x86";
               };
 
               default = {
