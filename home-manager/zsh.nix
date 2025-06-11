@@ -80,4 +80,5 @@
     XDG_DATA_HOME = "$HOME/.local/share";
   };
   enableCompletion = true;
+  completionInit = "autoload -U compinit && compinit -u";
 }
