@@ -48,16 +48,14 @@
           }:
           home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            modules =
-              [
-                ./home-manager/home.nix
-                {
-                  home = {
-                    username = username;
-                  };
-                }
-              ]
-              ++ extraModules;
+            modules = [
+              ./home-manager/home.nix
+              {
+                home = {
+                  username = username;
+                };
+              }
+            ] ++ extraModules;
           };
 
         darwinConfigurations = {
@@ -114,7 +112,6 @@
           ...
         }:
         {
-
           apps =
             let
               createSecretsIfNotExistsScript = pkgs.replaceVars ./scripts/check_and_create_secrets.sh {
@@ -154,16 +151,6 @@
                   '').outPath
                   + "/bin/switch-darwin-configuration";
               };
-
-              default = {
-                type = "app";
-                program =
-                  (pkgs.writeShellScriptBin "gen740-switch-configuration" ''
-                    ${pkgs.home-manager}/bin/home-manager switch --dry-run --flake ${self.outPath}#gen740
-                  '').outPath
-                  + "/bin/gen740-switch-configuration";
-              };
-
             };
         };
     };
