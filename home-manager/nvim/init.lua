@@ -102,13 +102,15 @@ for mode, keys in pairs {
   end
 end
 
-require('copilot').setup {
-  suggestion = {
-    enabled = true,
-    auto_trigger = true,
-    debounce = 75,
-  },
-}
+if vim.env.NVIM_COPILOT_ENABLED == '1' then
+  require('copilot').setup {
+    suggestion = {
+      enabled = true,
+      auto_trigger = true,
+      debounce = 75,
+    },
+  }
+end
 
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
