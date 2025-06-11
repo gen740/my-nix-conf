@@ -39,47 +39,31 @@
       ];
 
       flake = {
+        mkHomeConfigurations =
+          { username, pkgs, ... }:
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            modules = [
+              ./home-manager/home.nix
+              {
+                home = {
+                  username = username;
+                };
+              }
+            ];
+          };
+
         darwinConfigurations = {
           "gen740" = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [
               home-manager.darwinModules.home-manager
-              ./home/gen/home.nix
-              ./home/gen/macosApps.nix
+              ./home-manager
+              ./home-manager/macosApps.nix
               ./hardwares/darwin/configuration.nix
-              {
-                home-manager.users.gen.home.shellAliases = {
-                  switch-conf = ''
-                    nix flake metadata --refresh "github:gen740/my-nix-conf?ref=main" && \
-                    nix run -v -L --show-trace "github:gen740/my-nix-conf?ref=main#switchDarwinConfiguration"
-                  '';
-                };
-              }
             ];
             specialArgs = {
-              inputs = inputs;
-            };
-          };
-        };
-
-        darwinConfigurationsX86 = {
-          "gen740" = nix-darwin.lib.darwinSystem {
-            system = "x86_64-darwin";
-            modules = [
-              home-manager.darwinModules.home-manager
-              ./home/gen/home.nix
-              # ./home/gen/macosApps.nix
-              # ./hardwares/darwin/configuration.nix
-              # {
-              #   home-manager.users.gen.home.shellAliases = {
-              #     switch-conf = ''
-              #       nix flake metadata --refresh "github:gen740/my-nix-conf?ref=main" && \
-              #       nix run -v -L --show-trace "github:gen740/my-nix-conf?ref=main#switchDarwinConfiguration"
-              #     '';
-              #   };
-              # }
-            ];
-            specialArgs = {
+              username = "gen";
               inputs = inputs;
             };
           };
@@ -92,18 +76,11 @@
               nixos-hardware.nixosModules.apple-t2
               ./hardwares/T2mac/configuration.nix
               home-manager.nixosModules.home-manager
-              ./home/gen/home.nix
-              {
-                home-manager.users.gen.home.shellAliases = {
-                  switch-conf = ''
-                    nix flake metadata --refresh "github:gen740/my-nix-conf?ref=main" && \
-                    nix run -v -L --show-trace "github:gen740/my-nix-conf?ref=main#switchT2MacConfiguration"
-                  '';
-                };
-              }
+              ./home-manager
             ];
             specialArgs = {
               inputs = inputs;
+              username = "gen";
             };
           };
 
@@ -112,18 +89,11 @@
             modules = [
               ./hardwares/orbstack/configuration.nix
               home-manager.nixosModules.home-manager
-              ./home/gen/home.nix
-              {
-                home-manager.users.gen.home.shellAliases = {
-                  switch-conf = ''
-                    nix flake metadata --refresh "github:gen740/my-nix-conf?ref=main" && \
-                    nix run -v -L --show-trace "github:gen740/my-nix-conf?ref=main#switchOrbstackConfiguration"
-                  '';
-                };
-              }
+              ./home-manager
             ];
             specialArgs = {
               inputs = inputs;
+              username = "gen";
             };
           };
         };
@@ -137,36 +107,20 @@
           ...
         }:
         {
+
           apps =
             let
-              createSecretsIfNotExistsScript = ''
-                  if [ ! -f /opt/secrets/flake.nix ]; then
-                    echo "I will create /opt/secrets/flake.nix [y/N]"
-                    read answer
-                    case "$answer" in
-                      [yY]|[yY][eE][sS])
-                        echo "Creating /opt/secrets/flake.nix from template..."
-                        sudo mkdir -p /opt/secrets
-                        sudo sh -c 'cat > /opt/secrets/flake.nix <<EOF
-                ${builtins.readFile ./secrets_template.nix}
-                EOF'
-                        sudo chmod 644 /opt/secrets/flake.nix
-                        ;;
-                      *)
-                        echo "Skipped creation of /opt/secrets/flake.nix"
-                        ;;
-                    esac
-                  else
-                    echo "/opt/secrets/flake.nix already exists"
-                  fi
-              '';
+              createSecretsIfNotExistsScript = pkgs.replaceVars ./scripts/check_and_create_secrets.sh {
+                bash = "${pkgs.bash}/bin/bash";
+                secrets_template = "${./scripts/secrets_template.nix}";
+              };
             in
             {
               switchOrbstackConfiguration = {
                 type = "app";
                 program =
                   (pkgs.writeShellScriptBin "switch-orbstack-configuration" ''
-                    ${createSecretsIfNotExistsScript}
+                    sh ${createSecretsIfNotExistsScript}
                     exec sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch -v -L --show-trace --flake ${self.outPath}#nixos-orbstack
                   '').outPath
                   + "/bin/switch-orbstack-configuration";
@@ -176,7 +130,7 @@
                 type = "app";
                 program =
                   (pkgs.writeShellScriptBin "switch-t2mac-configuration" ''
-                    ${createSecretsIfNotExistsScript}
+                    sh ${createSecretsIfNotExistsScript}
                     exec sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch -v -L --show-trace --flake ${self.outPath}#nixos-t2mac
                   '').outPath
                   + "/bin/switch-t2mac-configuration";
@@ -186,7 +140,7 @@
                 type = "app";
                 program =
                   (pkgs.writeShellScriptBin "switch-darwin-configuration" ''
-                    ${createSecretsIfNotExistsScript}
+                    sh ${createSecretsIfNotExistsScript}
                     exec sudo ${
                       inputs.nix-darwin.packages.${system}.darwin-rebuild
                     }/bin/darwin-rebuild switch -v -L --show-trace --flake ${self.outPath}#gen740
@@ -194,25 +148,11 @@
                   + "/bin/switch-darwin-configuration";
               };
 
-              switchDarwinConfigurationX86 = {
-                type = "app";
-                program =
-                  (pkgs.writeShellScriptBin "switch-darwin-configuration-x86" ''
-                    ${createSecretsIfNotExistsScript}
-                    exec sudo ${
-                      inputs.nix-darwin.packages.${system}.darwin-rebuild
-                    }/bin/darwin-rebuild switch -v -L --show-trace --flake ${self.outPath}#gen740
-                  '').outPath
-                  + "/bin/switch-darwin-configuration-x86";
-              };
-
               default = {
                 type = "app";
                 program =
                   (pkgs.writeShellScriptBin "gen740-switch-configuration" ''
-                    git add -A -p
-                    git commit -m "Update configuration"
-                    git push
+                    ${pkgs.home-manager}/bin/home-manager switch --dry-run --flake ${self.outPath}#gen740
                   '').outPath
                   + "/bin/gen740-switch-configuration";
               };
