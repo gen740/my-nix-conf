@@ -47,11 +47,6 @@
   sessionVariables = {
     LC_ALL = "en_US.UTF-8";
   };
-  history = {
-    path = "";
-    save = 0;
-    size = 100;
-  };
   plugins = [
     {
       name = "git-prompt";
@@ -68,7 +63,7 @@
     }
   ];
   localVariables = {
-    REPORTTIME = 10;
+    REPORTTIME = 1;
     TIMEFMT = "%*E %*U %*S CPU: %P Memory: %M KB # %J";
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
