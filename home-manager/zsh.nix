@@ -33,6 +33,10 @@
     > " " - \e[32m %s\e[0m"
     }
     fi
+
+    if [ -e '$HOME/.zshrc.local' ]; then
+      source '$HOME/.zshrc.local'
+    fi
   '';
   envExtra = ''
     unsetopt global_rcs

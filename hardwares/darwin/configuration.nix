@@ -23,20 +23,19 @@
   nix = {
     linux-builder = {
       enable = true;
-      maxJobs = 6;
+      maxJobs = 4;
       config = {
         virtualisation = {
           darwin-builder = {
-            diskSize = 200 * 1024;
-            memorySize = 18 * 1024;
+            diskSize = 128 * 1024;
+            memorySize = 8 * 1024;
           };
-          cores = 7;
+          cores = 4;
         };
       };
     };
     settings = {
       trusted-users = [
-        "gen"
         "@admin"
       ];
     };
