@@ -8,6 +8,7 @@
     ps = "status --short --branch --show-stash  --untracked-files=all";
     cla = "clean -xfd -e flake.nix -e flake.lock -e .envrc";
     difftool-master = "!git difftool $(git merge-base origin/master HEAD)..HEAD";
+    difftool-main = "!git difftool $(git merge-base origin/main HEAD)..HEAD";
   };
   signing = {
     signer = "gpg";
