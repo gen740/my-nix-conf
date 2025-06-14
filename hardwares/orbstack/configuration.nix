@@ -13,7 +13,7 @@
 
   users.users.gen = {
     uid = 501;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "orbstack" ];
 
     # simulate isNormalUser, but with an arbitrary UID
     isSystemUser = true;
@@ -58,20 +58,18 @@
   security.pki.certificates = [
     ''
             -----BEGIN CERTIFICATE-----
-      MIICDTCCAbOgAwIBAgIRAMiTFlcbFeleKyvgF55D+WowCgYIKoZIzj0EAwIwZjEd
-      MBsGA1UEChMUT3JiU3RhY2sgRGV2ZWxvcG1lbnQxHjAcBgNVBAsMFUNvbnRhaW5l
-      cnMgJiBTZXJ2aWNlczElMCMGA1UEAxMcT3JiU3RhY2sgRGV2ZWxvcG1lbnQgUm9v
-      dCBDQTAeFw0yNTA0MDExMDQ5MDhaFw0zNTA0MDExMDQ5MDhaMGYxHTAbBgNVBAoT
-      FE9yYlN0YWNrIERldmVsb3BtZW50MR4wHAYDVQQLDBVDb250YWluZXJzICYgU2Vy
-      dmljZXMxJTAjBgNVBAMTHE9yYlN0YWNrIERldmVsb3BtZW50IFJvb3QgQ0EwWTAT
-      BgcqhkjOPQIBBggqhkjOPQMBBwNCAAR95fJOHxMoHW3YMNdAMDYykMCuX6rUS01S
-      jJbqVhe3TEYUxapo0teCnn3uPWHGs1orttonNy9T8jf44PrWzim7o0IwQDAOBgNV
-      HQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUgTcUSF4OxRIF
-      SjMUr4IizpE0nIswCgYIKoZIzj0EAwIDSAAwRQIgI/q7K1pyTZ9/x2LyEGjb5JNF
-      kEe+baB1ThUQZkeiVawCIQCrzByj26DjhFP9n2GP3nzD2ZIyUzGzMsbzdWY/Za0w
-      jw==
+      MIICCzCCAbKgAwIBAgIQJkSYx/54xSMTouDPiZC1kzAKBggqhkjOPQQDAjBmMR0w
+      GwYDVQQKExRPcmJTdGFjayBEZXZlbG9wbWVudDEeMBwGA1UECwwVQ29udGFpbmVy
+      cyAmIFNlcnZpY2VzMSUwIwYDVQQDExxPcmJTdGFjayBEZXZlbG9wbWVudCBSb290
+      IENBMB4XDTI1MDYxMjE1MDQ0MVoXDTM1MDYxMjE1MDQ0MVowZjEdMBsGA1UEChMU
+      T3JiU3RhY2sgRGV2ZWxvcG1lbnQxHjAcBgNVBAsMFUNvbnRhaW5lcnMgJiBTZXJ2
+      aWNlczElMCMGA1UEAxMcT3JiU3RhY2sgRGV2ZWxvcG1lbnQgUm9vdCBDQTBZMBMG
+      ByqGSM49AgEGCCqGSM49AwEHA0IABLubeUt2x5z8AlI+yLI3qMqoCDUjeyMwWeF7
+      S+dCVtccDYI6PW9FFQpj3MhJ9UhQ4GOI9Ri4BFlUsa/WoElvFj2jQjBAMA4GA1Ud
+      DwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRrvuJ8yscNdQaW
+      mM2XhtHpNjs5mjAKBggqhkjOPQQDAgNHADBEAiAsxgOcf7SEBSMwW4spb7r8mAwa
+      WQFuDm5aXk67wCaKVAIgFMPkkOu6LttzIcMY7qR6CZPZo4gdYPJTppvxuaFB6UQ=
       -----END CERTIFICATE-----
-
     ''
   ];
 
@@ -92,5 +90,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
