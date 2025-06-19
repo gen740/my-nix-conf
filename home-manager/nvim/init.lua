@@ -115,11 +115,13 @@ end
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     if client:supports_method('textDocument/completion') then
-      local chars = {}
-      for i = 32, 126 do
-        table.insert(chars, string.char(i))
+      if client.server_capabilities.completionProvider ~= nil then
+        local chars = {}
+        for i = 32, 126 do
+          table.insert(chars, string.char(i))
+        end
+        client.server_capabilities.completionProvider.triggerCharacters = chars
       end
-      client.server_capabilities.completionProvider.triggerCharacters = chars
       vim.lsp.completion.enable(true, client.id, bufnr, {
         autotrigger = true,
         convert = function(item)
