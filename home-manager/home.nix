@@ -5,6 +5,7 @@
     ls = "ls --color -F";
     dr = "direnv allow";
     ta = "tmux attach";
+    nix-run-build = "nix run .#build";
   };
   home.packages = with pkgs; [
     trash-cli
