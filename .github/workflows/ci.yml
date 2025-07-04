@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: gen740-nix-conf
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        skipPush: true
+
+    - name: Create mock secrets
+      run: |
+        mkdir -p ~/.config/nix-secrets
+        cp scripts/secrets_template.nix ~/.config/nix-secrets/flake.nix
+        
+    - name: Check flake
+      run: nix flake check --all-systems --show-trace
+
+    - name: Build Darwin configuration
+      run: nix build .#darwinConfigurations.gen740.system --show-trace
+
+    - name: Build NixOS T2Mac configuration  
+      run: nix build .#nixosConfigurations.nixos-t2mac.config.system.build.toplevel --show-trace
+
+    - name: Build NixOS OrbStack configuration
+      run: nix build .#nixosConfigurations.nixos-orbstack.config.system.build.toplevel --show-trace
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          
+    - name: Check formatting
+      run: |
+        nix develop --command bash -c "
+          # Create temporary copies and format them
+          find . -name '*.nix' -type f -exec cp {} {}.formatted \;
+          find . -name '*.nix.formatted' -type f -exec nixfmt {} \;
+          
+          # Compare original with formatted
+          UNFORMATTED_FILES=()
+          for file in \$(find . -name '*.nix' -type f); do
+            if ! diff -q \"\$file\" \"\$file.formatted\" >/dev/null 2>&1; then
+              UNFORMATTED_FILES+=(\"\$file\")
+            fi
+          done
+          
+          # Clean up temporary files
+          find . -name '*.nix.formatted' -type f -delete
+          
+          # Report results
+          if [ \${#UNFORMATTED_FILES[@]} -gt 0 ]; then
+            echo '::error::The following Nix files are not formatted correctly:'
+            printf '::error::  - %s\n' \"\${UNFORMATTED_FILES[@]}\"
+            echo '::error::Please run: nix develop --command bash -c \"find . -name \\\"*.nix\\\" -type f -exec nixfmt {} \\;\"'
+            exit 1
+          else
+            echo 'All Nix files are properly formatted'
+          fi
+        "
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check for secrets in repository
+      run: |
+        # Check for common secret patterns
+        if grep -r "password.*=" --include="*.nix" . | grep -v "placeholder\|template\|example"; then
+          echo "::error::Potential secrets found in repository"
+          exit 1
+        fi
+        
+        # Check for hardcoded tokens
+        if grep -r "token.*=" --include="*.nix" . | grep -v "placeholder\|template\|example"; then
+          echo "::error::Potential tokens found in repository"
+          exit 1
+        fi
+        
+        echo "No secrets detected in repository"
+
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check documentation
+      run: |
+        # Check if README exists and is not empty
+        if [ ! -f README.md ] || [ ! -s README.md ]; then
+          echo "::error::README.md is missing or empty"
+          exit 1
+        fi
+        
+        # Check if CLAUDE.md exists (for AI assistant instructions)
+        if [ ! -f CLAUDE.md ]; then
+          echo "::warning::CLAUDE.md is missing - consider adding AI assistant instructions"
+        fi
+        
+        echo "Documentation checks passed"
