@@ -68,9 +68,9 @@
     };
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
     };
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
     xrdp = {
       enable = true;
       defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";
@@ -90,6 +90,9 @@
         otpFile = pkgs.writeText "otpsecret" inputs.secrets.secrets.services.gitlab.secrets.otpsecret;
         dbFile = pkgs.writeText "dbsecret" inputs.secrets.secrets.services.gitlab.secrets.dbsecret;
         jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+        activeRecordPrimaryKeyFile = pkgs.writeText "activeRecordPrimaryKey" inputs.secrets.secrets.services.gitlab.secrets.activeRecordPrimaryKeyFile;
+        activeRecordDeterministicKeyFile = pkgs.writeText "activeRecordDeterministicKey" inputs.secrets.secrets.services.gitlab.secrets.activeRecordDeterministicKeyFile;
+        activeRecordSaltFile = pkgs.writeText "activeRecordSalt" inputs.secrets.secrets.services.gitlab.secrets.activeRecordSaltFile;
       };
     };
 

@@ -13,7 +13,10 @@
 
   users.users.gen = {
     uid = 501;
-    extraGroups = [ "wheel" "orbstack" ];
+    extraGroups = [
+      "wheel"
+      "orbstack"
+    ];
 
     # simulate isNormalUser, but with an arbitrary UID
     isSystemUser = true;
