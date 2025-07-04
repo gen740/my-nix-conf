@@ -9,6 +9,9 @@
   };
   home.packages = with pkgs; [
     trash-cli
+
+    gemini-cli
+    claude-code
   ];
 
   xdg.configFile = {

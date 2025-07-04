@@ -13,6 +13,7 @@ vim.opt.cmdheight = 0
 
 vim.g.netrw_banner = 0
 vim.g.netrw_hide = 1
+vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
 
@@ -27,7 +28,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 vim.cmd('colorscheme github_dark_colorblind')
 vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
-vim.api.nvim_set_hl(0, 'Whitespace', { fg = '#8b949e' })
 
 vim.api.nvim_create_autocmd('FileType', {
   callback = function()
@@ -102,9 +102,11 @@ for mode, keys in pairs {
   end
 end
 
+--
 if vim.env.NVIM_COPILOT_ENABLED == '1' then
   require('copilot').setup {
     suggestion = {
+      hide_during_completion = false,
       enabled = true,
       auto_trigger = true,
       debounce = 75,
@@ -132,4 +134,5 @@ vim.lsp.config('*', {
   end,
 })
 
+-- TODO: Add 'copilot_ls' if builtin LSP supports it
 vim.lsp.enable { 'nixd', 'lua_ls', 'jsonls', 'yamlls', 'clangd', 'pyright', 'ruff', 'cmake' }
