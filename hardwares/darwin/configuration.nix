@@ -24,10 +24,11 @@
     linux-builder = {
       enable = true;
       maxJobs = 4;
+      ephemeral = true;
       config = {
         virtualisation = {
           darwin-builder = {
-            diskSize = 128 * 1024;
+            diskSize = 256 * 1024;
             memorySize = 8 * 1024;
           };
           cores = 4;
