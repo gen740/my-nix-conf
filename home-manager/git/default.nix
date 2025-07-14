@@ -37,11 +37,4 @@
       template = "~/.config/git/git-commitmessage.txt";
     };
   };
-  ignores = [
-    ".direnv"
-    ".envrc"
-    "flake.nix"
-    "flake.lock"
-    "workdir/"
-  ];
 }
