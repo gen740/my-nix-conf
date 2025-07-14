@@ -9,7 +9,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 
 vim.g.netrw_banner = 0
 vim.g.netrw_hide = 1

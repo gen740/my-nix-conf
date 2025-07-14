@@ -177,12 +177,6 @@
               nil
               nix-output-monitor
             ];
-            shellHook = ''
-              echo "🎯 Nix configuration development environment"
-              echo "Available apps: nix run .#switchDarwinConfiguration"
-              echo "Format code: nixfmt flake.nix"
-              echo "Check flake: nix flake check"
-            '';
           };
         };
     };

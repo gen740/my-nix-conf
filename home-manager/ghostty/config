@@ -1,0 +1,12 @@
+theme = github-dark.conf
+font-family      = "FiraCode Nerd Font Mono"
+font-style       = "SemiBold"
+font-family-bold = "FiraCode Nerd Font Mono"
+font-style-bold  = "Bold"
+font-size = 14
+# window-decoration = none
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+font-feature = -calt,-liga,-dlig
+confirm-close-surface = false
+title = " "

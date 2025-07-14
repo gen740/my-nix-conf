@@ -5,11 +5,10 @@
     ls = "ls --color -F";
     dr = "direnv allow";
     ta = "tmux attach";
+    vi = "nvim";
     nix-run-build = "nix run .#build";
   };
   home.packages = with pkgs; [
-    trash-cli
-
     gemini-cli
     claude-code
   ];
@@ -20,6 +19,9 @@
     };
     "nvim" = {
       source = ./nvim;
+    };
+    "ghostty" = {
+      source = ./ghostty;
     };
   };
 
@@ -52,8 +54,6 @@
         prompt = "enabled";
       };
     };
-
-    alacritty = import ./alacritty;
 
     fd = {
       enable = true;
