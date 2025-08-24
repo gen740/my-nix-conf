@@ -135,4 +135,17 @@ vim.lsp.config('*', {
 })
 
 -- TODO: Add 'copilot_ls' if builtin LSP supports it
-vim.lsp.enable { 'nixd', 'lua_ls', 'jsonls', 'yamlls', 'clangd', 'pyright', 'ruff', 'cmake' }
+vim.lsp.enable {
+  'nixd',
+  'lua_ls',
+  'jsonls',
+  'yamlls',
+  'clangd',
+  'pyright',
+  'ruff',
+  'cmake',
+  'vtsls',
+  'biome',
+  'cssls',
+  'htmlls',
+}

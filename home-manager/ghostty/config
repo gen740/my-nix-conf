@@ -9,11 +9,14 @@ macos-option-as-alt = true
 font-feature = -calt,-liga,-dlig
 confirm-close-surface = false
 title = " "
-# macos-titlebar-style = hidden
+
 window-decoration = none
 window-padding-x = 8
 window-padding-y = 8
 window-padding-balance = true
+maximize = true
+window-width = 300
+window-height = 300
 
 cursor-style = block
 cursor-style-blink = false

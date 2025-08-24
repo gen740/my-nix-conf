@@ -3,21 +3,7 @@
   enable = true;
   initContent = ''
     stty stop undef # do not stop the terminal with C-s
-    case "$(uname)" in
-      Darwin)
-        HM_OS_ICON=""
-        ;;
-      Linux)
-        if [[ -f /etc/os-release ]] && grep -q '^ID=nixos' /etc/os-release; then
-          HM_OS_ICON=""
-        else
-          HM_OS_ICON=""
-        fi
-        ;;
-      *)
-        HM_OS_ICON="?"
-        ;;
-    esac
+
     if whence __git_ps1 &>/dev/null; then
       precmd () {
       local EXIT_STATUS=$?
@@ -29,13 +15,21 @@
       else
         ZSH_PROMPT_HAS_RUN=1
       fi
-      __git_ps1 "$HM_OS_ICON (%m) %~" "
+      __git_ps1 "%m:%~" "
     > " " - \e[32m %s\e[0m"
     }
     fi
 
     if [ -e "$HOME/.zshrc.local" ]; then
       source "$HOME/.zshrc.local"
+    fi
+
+    if [ "$(uname)" = "Darwin" ]; then
+      autoload -Uz _nix
+      nix() {
+        command caffeinate -i nix "$@"
+      }
+      compdef _nix nix
     fi
   '';
   envExtra = ''
@@ -78,9 +72,6 @@
     LESSCHARSET = "utf-8";
     VISUAL = "nvim";
     MANPAGER = "nvim +Man!";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_DATA_HOME = "$HOME/.local/share";
   };
   enableCompletion = true;
   completionInit = "autoload -U compinit && compinit -u";

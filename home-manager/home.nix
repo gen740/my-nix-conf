@@ -1,27 +1,35 @@
 { pkgs, ... }:
+let
+  callModule = module: import module { inherit pkgs; };
+in
 {
-  home.stateVersion = "24.11";
-  home.shellAliases = {
-    ls = "ls --color -F";
-    dr = "direnv allow";
-    ta = "tmux attach";
-    vi = "nvim";
-    nix-run-build = "nix run .#build";
+  home = {
+    stateVersion = "24.11";
+    shellAliases = {
+      ls = "ls --color -F";
+      dr = "direnv allow";
+      ta = "tmux attach";
+      vi = "nvim";
+      nix-run-build = "nix run .#build";
+    };
+    packages = with pkgs; [
+      gemini-cli
+      claude-code
+    ];
   };
-  home.packages = with pkgs; [
-    gemini-cli
-    claude-code
-  ];
 
-  xdg.configFile = {
-    "git/git-commitmessage.txt" = {
-      source = ./git/git-commitmessage.txt;
-    };
-    "nvim" = {
-      source = ./nvim;
-    };
-    "ghostty" = {
-      source = ./ghostty;
+  xdg = {
+    enable = true;
+    configFile = {
+      "git/git-commitmessage.txt" = {
+        source = ./git/git-commitmessage.txt;
+      };
+      "nvim" = {
+        source = ./nvim;
+      };
+      "ghostty" = {
+        source = ./ghostty;
+      };
     };
   };
 
@@ -54,7 +62,6 @@
         prompt = "enabled";
       };
     };
-
     fd = {
       enable = true;
       ignores = [
@@ -65,7 +72,6 @@
         ".DS_Store"
       ];
     };
-
     fzf = {
       enable = true;
       defaultCommand = "fd --type f --hidden --follow --exclude .git";
@@ -78,25 +84,16 @@
         "--pointer=\ "
       ];
     };
-
     lazygit = {
       enable = true;
     };
-
     direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
-
-    tmux = import ./tmux.nix {
-      inherit pkgs;
-    };
-    git = import ./git;
-    zsh = import ./zsh.nix {
-      inherit pkgs;
-    };
-    neovim = import ./nvim {
-      inherit pkgs;
-    };
+    tmux = callModule ./tmux.nix;
+    git = callModule ./git;
+    zsh = callModule ./zsh.nix;
+    neovim = callModule ./nvim;
   };
 }
