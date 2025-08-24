@@ -57,7 +57,13 @@ for mode, keys in pairs {
       vim.lsp.buf.format {
         async = false,
         filter = function(client)
-          return (client.name ~= 'tsserver' and client.name ~= 'vtsls' and client.name ~= 'texlab')
+          return (
+            client.name ~= 'tsserver'
+            and client.name ~= 'vtsls'
+            and client.name ~= 'texlab'
+            and client.name ~= 'htmlls'
+            and client.name ~= 'cssls'
+          )
         end,
       }
     end,
