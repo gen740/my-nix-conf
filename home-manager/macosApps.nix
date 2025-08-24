@@ -4,7 +4,6 @@
     home.packages = with pkgs; [
       skimpdf
       keycastr
-      utm
       jetbrains.clion
       jetbrains.pycharm-professional
       jetbrains.dataspell
