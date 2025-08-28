@@ -134,6 +134,7 @@ vim.lsp.config('*', {
   end,
 })
 vim.lsp.inline_completion.enable(true)
+vim.lsp.inlay_hint.enable(true)
 vim.lsp.enable {
   'nixd',
   'lua_ls',
