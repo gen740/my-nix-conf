@@ -1,10 +1,14 @@
 { pkgs, ... }:
 {
   enable = true;
-  plugins = with pkgs.vimPlugins; [
-    copilot-lua
-    github-nvim-theme
-    nvim-treesitter.withAllGrammars
-  ];
   withNodeJs = true;
+  package = pkgs.neovim-unwrapped.overrideAttrs (old: {
+    version = "v0.12.0-dev";
+    src = pkgs.fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      rev = "c10e36fc016cb265026a772571ce0a405df2ab71";
+      sha256 = "sha256-lmUo3im/tnY92LTqufr5Xbd8eWfAkiCAbf6Kx9IKu+0=";
+    };
+  });
 }
