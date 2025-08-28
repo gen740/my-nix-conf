@@ -26,14 +26,20 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
--- vim.cmd('colorscheme github_dark_colorblind')
--- vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
+vim.cmd('colorscheme github_dark_colorblind')
+vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
 
--- vim.api.nvim_create_autocmd('FileType', {
---   callback = function()
---     pcall(vim.treesitter.start)
---   end,
--- })
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = {},
+  modules = {},
+  sync_install = false,
+  auto_install = false,
+  ignore_install = {},
+  highlight = {
+    enable = true,
+  },
+}
+
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
