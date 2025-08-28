@@ -26,14 +26,14 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
-vim.cmd('colorscheme github_dark_colorblind')
-vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
+-- vim.cmd('colorscheme github_dark_colorblind')
+-- vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
 
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    pcall(vim.treesitter.start)
-  end,
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   callback = function()
+--     pcall(vim.treesitter.start)
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
@@ -45,11 +45,11 @@ vim.api.nvim_create_autocmd('FileType', {
 
 for mode, keys in pairs {
   i = {
-    ['<c-l>'] = '<cmd>Copilot suggestion next<cr>',
-    ['<c-h>'] = '<cmd>Copilot suggestion prev<cr>',
-    ['<c-t>'] = '<cmd>Copilot suggestion accept<cr>',
-    ['<m-w>'] = '<cmd>Copilot suggestion accept_word<cr>',
-    ['<m-l>'] = '<cmd>Copilot suggestion accept_line<cr>',
+    ['<c-t>'] = function()
+      if not vim.lsp.inline_completion.get() then
+        return "<c-t>"
+      end
+    end
   },
   n = {
     ['-'] = "<cmd>execute 'Explore ' . fnameescape(fnamemodify(expand('%:p'), ':h'))<cr>",
@@ -108,18 +108,6 @@ for mode, keys in pairs {
   end
 end
 
---
-if vim.env.NVIM_COPILOT_ENABLED == '1' then
-  require('copilot').setup {
-    suggestion = {
-      hide_during_completion = false,
-      enabled = true,
-      auto_trigger = true,
-      debounce = 75,
-    },
-  }
-end
-
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     if client:supports_method('textDocument/completion') then
@@ -139,8 +127,7 @@ vim.lsp.config('*', {
     end
   end,
 })
-
--- TODO: Add 'copilot_ls' if builtin LSP supports it
+vim.lsp.inline_completion.enable(true)
 vim.lsp.enable {
   'nixd',
   'lua_ls',
@@ -150,6 +137,7 @@ vim.lsp.enable {
   'pyright',
   'ruff',
   'cmake',
+  'copilot',
   'vtsls',
   'biome',
   'cssls',
