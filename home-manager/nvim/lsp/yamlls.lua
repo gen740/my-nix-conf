@@ -1,11 +1,5 @@
 return {
-  cmd = {
-    'nix',
-    'run',
-    'nixpkgs#yaml-language-server',
-    '--',
-    '--stdio',
-  },
+  cmd = { 'nix', 'run', 'nixpkgs#yaml-language-server', '--', '--stdio' },
   settings = {
     yaml = {
       schemas = {

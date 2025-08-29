@@ -1,11 +1,4 @@
 return {
-  cmd = {
-    'nix',
-    'shell',
-    'nixpkgs#ruff',
-    '-c',
-    'ruff',
-    'server',
-  },
+  cmd = { 'nix', 'shell', 'nixpkgs#ruff', '-c', 'ruff', 'server' },
   filetypes = { 'python' },
 }
