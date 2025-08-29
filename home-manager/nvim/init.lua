@@ -26,20 +26,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
-vim.cmd('colorscheme github_dark_colorblind')
-vim.api.nvim_set_hl(0, 'StatusLineNC', { bg = '#30363d', fg = '#0d1117' })
-
-require 'nvim-treesitter.configs'.setup {
-  ensure_installed = {},
-  modules = {},
-  sync_install = false,
-  auto_install = false,
-  ignore_install = {},
-  highlight = {
-    enable = true,
-  },
-}
-
+vim.cmd('colorscheme retrobox')
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
@@ -51,6 +38,12 @@ vim.api.nvim_create_autocmd('FileType', {
 
 for mode, keys in pairs {
   i = {
+    ['<m-n>'] = function()
+      vim.lsp.inline_completion.select({})
+    end,
+    ['<m-p>'] = function()
+      vim.lsp.inline_completion.select({ count = -1 })
+    end,
     ['<c-t>'] = function()
       if not vim.lsp.inline_completion.get() then
         return "<c-t>"
