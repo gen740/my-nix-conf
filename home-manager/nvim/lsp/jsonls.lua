@@ -1,12 +1,5 @@
 return {
-  cmd = {
-    'nix',
-    'shell',
-    'nixpkgs#vscode-langservers-extracted',
-    '-c',
-    'vscode-json-language-server',
-    '--stdio',
-  },
+  cmd = { 'nix', 'shell', 'nixpkgs#vscode-langservers-extracted', '-c', 'vscode-json-language-server', '--stdio' },
   settings = {
     json = {
       schemas = {
@@ -24,7 +17,8 @@ return {
         },
         {
           fileMatch = { 'pyrightconfig.json' },
-          url = 'https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json',
+          url =
+          'https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json',
         },
         {
           fileMatch = { 'biome.json' },

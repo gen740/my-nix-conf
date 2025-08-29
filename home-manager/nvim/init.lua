@@ -8,7 +8,7 @@ vim.opt.signcolumn = 'yes'
 vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
 vim.opt.cmdheight = 1
 
 vim.g.netrw_banner = 0
@@ -16,6 +16,8 @@ vim.g.netrw_hide = 1
 vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
+
+vim.cmd('colorscheme retrobox')
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -25,8 +27,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt_local.scrolloff = 0
   end,
 })
-
-vim.cmd('colorscheme retrobox')
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
@@ -48,7 +48,7 @@ for mode, keys in pairs {
       if not vim.lsp.inline_completion.get() then
         return "<c-t>"
       end
-    end
+    end,
   },
   n = {
     ['-'] = "<cmd>execute 'Explore ' . fnameescape(fnamemodify(expand('%:p'), ':h'))<cr>",
@@ -57,8 +57,7 @@ for mode, keys in pairs {
         async = false,
         filter = function(client)
           return (
-            client.name ~= 'tsserver'
-            and client.name ~= 'vtsls'
+            client.name ~= 'vtsls'
             and client.name ~= 'texlab'
             and client.name ~= 'htmlls'
             and client.name ~= 'cssls'
@@ -66,7 +65,6 @@ for mode, keys in pairs {
         end,
       }
     end,
-    ['<space>bt'] = "<cmd>belowright 20split | terminal<cr>",
 
     --- LSP
     ['<space>e'] = vim.diagnostic.open_float,
@@ -107,6 +105,7 @@ for mode, keys in pairs {
   end
 end
 
+--- LSP Settings
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     if client:supports_method('textDocument/completion') then

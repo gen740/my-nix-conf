@@ -42,7 +42,6 @@
               home-manager.darwinModules.home-manager
               ./home-manager
               ./hardwares/darwin/configuration.nix
-              ./home-manager/macosApps.nix
             ];
             specialArgs = {
               username = "gen";

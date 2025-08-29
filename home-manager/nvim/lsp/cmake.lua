@@ -1,7 +1,5 @@
 return {
-  cmd = {
-    'nix', 'run', 'nixpkgs#cmake-language-server',
-  },
+  cmd = { 'nix', 'run', 'nixpkgs#cmake-language-server', },
   filetypes = { 'cmake' },
   init_options = {
     buildDirectory = 'build',

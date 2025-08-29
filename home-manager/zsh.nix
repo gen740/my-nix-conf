@@ -45,7 +45,6 @@
     fi
     # End Nix
   '';
-  defaultKeymap = "emacs";
   sessionVariables = {
     LC_ALL = "en_US.UTF-8";
   };
@@ -64,6 +63,7 @@
       file = "git-prompt.sh";
     }
   ];
+  defaultKeymap = "emacs";
   localVariables = {
     REPORTTIME = 1;
     TIMEFMT = "%*E %*U %*S CPU: %P Memory: %M KB # %J";

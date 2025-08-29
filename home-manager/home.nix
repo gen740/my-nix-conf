@@ -4,7 +4,7 @@ let
 in
 {
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     shellAliases = {
       ls = "ls --color -F";
       dr = "direnv allow";
@@ -33,17 +33,13 @@ in
     };
   };
 
-  nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
-  services = {
-    gpg-agent = {
-      enable = true;
-      pinentry.package = pkgs.pinentry-tty;
-    };
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-tty;
   };
 
   programs = {
@@ -53,8 +49,6 @@ in
       enable = true;
       extensions = with pkgs; [
         gh-copilot
-        gh-notify
-        gh-dash
       ];
       settings = {
         git_protocol = "ssh";
@@ -80,13 +74,11 @@ in
         "--height=24"
         "--scroll-off=3"
         "--no-mouse"
-        "--prompt=\ "
-        "--pointer=\ "
+        "--prompt=\\ "
+        "--pointer=\\ "
       ];
     };
-    lazygit = {
-      enable = true;
-    };
+    lazygit.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;
