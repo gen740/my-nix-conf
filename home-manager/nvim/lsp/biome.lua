@@ -7,5 +7,13 @@ return {
     'lsp-proxy',
     '--stdio',
   },
-  filetypes = { 'typescript', 'javascript', 'html' },
+  filetypes = {
+    'typescript',
+    'javascript',
+    'html',
+    'typescriptreact',
+    'javascriptreact',
+    'vue',
+    'svelte'
+  },
 }

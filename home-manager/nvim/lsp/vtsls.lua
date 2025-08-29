@@ -6,5 +6,13 @@ return {
     '--',
     '--stdio',
   },
-  filetypes = { 'typescript' },
+  filetypes = {
+    'typescript',
+    'javascript',
+    'html',
+    'typescriptreact',
+    'javascriptreact',
+    'vue',
+    'svelte'
+  },
 }
