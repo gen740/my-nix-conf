@@ -1,0 +1,53 @@
+{
+  "c": {
+    "src": "https://github.com/tree-sitter/tree-sitter-c"
+  },
+  "cpp": {
+    "src": "https://github.com/tree-sitter/tree-sitter-cpp"
+  },
+  "typescript": {
+    "src": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "location": "typescript"
+  },
+  "tsx": {
+    "src": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "location": "tsx",
+    "language": "typescriptreact"
+  },
+  "javascript": {
+    "src": "https://github.com/tree-sitter/tree-sitter-javascript"
+  },
+  "python": {
+    "src": "https://github.com/tree-sitter/tree-sitter-python"
+  },
+  "json": {
+    "src": "https://github.com/tree-sitter/tree-sitter-json"
+  },
+  "css": {
+    "src": "https://github.com/tree-sitter/tree-sitter-css"
+  },
+  "html": {
+    "src": "https://github.com/tree-sitter/tree-sitter-html"
+  },
+  "lua": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+  },
+  "vim": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-vim"
+  },
+  "vimdoc": {
+    "src": "https://github.com/neovim/tree-sitter-vimdoc"
+  },
+  "query": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-query"
+  },
+  "markdow" : {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
+    "location": "tree-sitter-markdown"
+  },
+  "markdown_inline": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
+    "location": "tree-sitter-markdown-inline",
+    "language": "markdown_inline"
+  }
+}
