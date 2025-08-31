@@ -1,3 +1,6 @@
+--------------------------------------------------------------------------------
+--- Basic Settings
+--------------------------------------------------------------------------------
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 2
@@ -8,18 +11,13 @@ vim.opt.signcolumn = 'yes'
 vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
-vim.opt.cmdheight = 1
+vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noinsert', 'popup' }
 
 vim.g.netrw_banner = 0
 vim.g.netrw_hide = 1
 vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function() vim.cmd.colorscheme "retrobox" end
-})
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
@@ -38,6 +36,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+--------------------------------------------------------------------------------
+--- Keymaps
+--------------------------------------------------------------------------------
 for mode, keys in pairs {
   i = {
     ['<m-n>'] = function()
@@ -61,21 +62,14 @@ for mode, keys in pairs {
           return (
             client.name ~= 'vtsls'
             and client.name ~= 'texlab'
-            and client.name ~= 'htmlls'
-            and client.name ~= 'cssls'
           )
         end,
       }
     end,
 
-    --- LSP
     ['<space>e'] = vim.diagnostic.open_float,
-    ['[d'] = function()
-      vim.diagnostic.jump { count = -1, float = true }
-    end,
-    [']d'] = function()
-      vim.diagnostic.jump { count = 1, float = true }
-    end,
+    ['[d'] = function() vim.diagnostic.jump { count = -1, float = true } end,
+    [']d'] = function() vim.diagnostic.jump { count = 1, float = true } end,
     ['<space>lc'] = vim.diagnostic.setloclist,
     ['<space>lo'] = vim.lsp.buf.outgoing_calls,
     ['<space>li'] = vim.lsp.buf.incoming_calls,
@@ -87,15 +81,11 @@ for mode, keys in pairs {
     ['<C-k>'] = vim.lsp.buf.signature_help,
     ['<space>D'] = vim.lsp.buf.type_definition,
     ['<space>rn'] = vim.lsp.buf.rename,
-    ['<space>ca'] = function()
-      vim.lsp.buf.code_action { apply = true }
-    end,
-  },
-  x = {
-    ['<space>p'] = '"_dP',
+    ['<space>ca'] = function() vim.lsp.buf.code_action { apply = true } end,
   },
   t = {
-    ['<esc><esc>'] = '<C-\\><C-n>',
+    ['<esc>'] = '<C-\\><C-n>',
+    ['<esc><esc>'] = '<esc>',
   },
 } do
   for key, callback in pairs(keys) do
@@ -107,7 +97,9 @@ for mode, keys in pairs {
   end
 end
 
+--------------------------------------------------------------------------------
 --- LSP Settings
+--------------------------------------------------------------------------------
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     if client:supports_method('textDocument/completion') then
@@ -127,8 +119,6 @@ vim.lsp.config('*', {
     end
   end,
 })
-vim.lsp.inline_completion.enable(true)
-vim.lsp.inlay_hint.enable(true)
 vim.lsp.enable {
   'nixd',
   'lua_ls',
@@ -144,3 +134,11 @@ vim.lsp.enable {
   'cssls',
   'htmlls',
 }
+vim.lsp.inline_completion.enable(true)
+vim.lsp.inlay_hint.enable(false)
+
+
+--------------------------------------------------------------------------------
+--- ColorScheme
+--------------------------------------------------------------------------------
+vim.cmd.colorscheme "retrobox"

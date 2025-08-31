@@ -41,7 +41,7 @@
   "query": {
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-query"
   },
-  "markdow" : {
+  "markdown" : {
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
     "location": "tree-sitter-markdown"
   },

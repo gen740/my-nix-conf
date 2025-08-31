@@ -2,6 +2,9 @@ return {
   cmd = { 'nix', 'shell', 'nixpkgs#vscode-langservers-extracted', '-c', 'vscode-json-language-server', '--stdio' },
   settings = {
     json = {
+      format = {
+        enable = true
+      },
       schemas = {
         {
           fileMatch = { 'package.json' },

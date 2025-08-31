@@ -80,7 +80,7 @@
       hash = "sha256-kGguEo0Ej78qKhftypR9tx4yb6Cz26QTbgQeCWU4tOs=";
     };
   };
-  markdow = {
+  markdown = {
     src = fetchurl {
       url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.0.tar.gz";
       hash = "sha256-FMLJSMzw6bYG7sObCShsWd3fKDB4SfcbfOKx0e8Gk34=";
