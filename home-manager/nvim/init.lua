@@ -17,7 +17,9 @@ vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
 
-vim.cmd('colorscheme retrobox')
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function() vim.cmd.colorscheme "retrobox" end
+})
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',

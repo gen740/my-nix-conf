@@ -59,6 +59,7 @@
             ];
             specialArgs = {
               username = "gen";
+              inherit inputs;
             };
           };
           nixos-orbstack = nixpkgs.lib.nixosSystem {
