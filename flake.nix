@@ -13,9 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    secrets = {
-      url = "path:/Users/gen/.config/nix-secrets";
-    };
+    secrets.url = "path:/Users/gen/.config/nix-secrets";
   };
 
   outputs =
@@ -49,8 +47,8 @@
           };
         };
         nixosConfigurations = {
-          nixos-t2mac = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
+          t2mac = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
             modules = [
               home-manager.nixosModules.home-manager
               ./home-manager
@@ -62,7 +60,7 @@
               inherit inputs;
             };
           };
-          nixos-orbstack = nixpkgs.lib.nixosSystem {
+          orbstack = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             modules = [
               home-manager.nixosModules.home-manager
@@ -105,37 +103,56 @@
         in
         {
           apps = {
-            switchDarwinConfiguration = mkSwitchApp {
-              name = "darwin";
-              command = "${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild";
-              flakeTarget = "gen740";
-              description = "Switch to Darwin (macOS) configuration";
-            };
+            armmac =
+              if pkgs.stdenv.isDarwin then
+                mkSwitchApp {
+                  name = "darwin";
+                  command = "${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild";
+                  flakeTarget = "gen740";
+                  description = "Switch to Darwin (macOS) configuration";
+                }
+              else
+                {
+                  type = "app";
+                  program = "${pkgs.writeShellScript "switch-darwin-noop" ''
+                    echo "This is not a Darwin system. The 'armmac' app is a no-op."
+                  ''}";
+                  meta.description = "No-op on non-Darwin systems";
+                };
 
-            switchT2MacConfiguration = mkSwitchApp {
-              name = "t2mac";
-              command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
-              flakeTarget = "nixos-t2mac";
-              description = "Switch to NixOS configuration for Apple T2 Mac";
-            };
+            t2mac =
+              if pkgs.stdenv.isLinux then
+                mkSwitchApp {
+                  name = "t2mac";
+                  command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
+                  flakeTarget = "t2mac";
+                  description = "Switch to NixOS configuration for Apple T2 Mac";
+                }
+              else
+                {
+                  type = "app";
+                  program = "${pkgs.writeShellScript "switch-t2mac-noop" ''
+                    echo "This is not a Linux system. The 't2mac' app is a no-op."
+                  ''}";
+                  meta.description = "No-op on non-Linux systems";
+                };
 
-            switchOrbstackConfiguration = mkSwitchApp {
-              name = "orbstack";
-              command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
-              flakeTarget = "nixos-orbstack";
-              description = "Switch to NixOS configuration for OrbStack container";
-            };
-
-            default = mkSwitchApp {
-              name = "default";
-              command =
-                if pkgs.stdenv.isDarwin then
-                  "${nix-darwin.packages.${system}.darwin-rebuild}/bin/darwin-rebuild"
-                else
-                  "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
-              flakeTarget = if pkgs.stdenv.isDarwin then "gen740" else "nixos-orbstack";
-              description = "Switch to platform-appropriate configuration (Darwin or OrbStack)";
-            };
+            orbstack =
+              if pkgs.stdenv.isLinux then
+                mkSwitchApp {
+                  name = "orbstack";
+                  command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
+                  flakeTarget = "orbstack";
+                  description = "Switch to NixOS configuration for OrbStack container";
+                }
+              else
+                {
+                  type = "app";
+                  program = "${pkgs.writeShellScript "switch-orbstack-noop" ''
+                    echo "This is not a Linux system. The 'orbstack' app is a no-op."
+                  ''}";
+                  meta.description = "No-op on non-Linux systems";
+                };
           };
 
           devShells.default = pkgs.mkShell {

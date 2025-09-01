@@ -146,9 +146,22 @@ vim.lsp.enable {
   'cssls',
   'htmlls',
 }
-vim.lsp.inline_completion.enable()
-vim.lsp.inlay_hint.enable()
-vim.lsp.on_type_formatting.enable()
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client == nil then
+      return
+    end
+    if client.name == 'copilot' then
+      vim.lsp.inline_completion.enable()
+    end
+    if client.name == 'nixd' then
+      vim.lsp.inlay_hint.enable()
+    end
+    vim.lsp.on_type_formatting.enable()
+  end,
+})
 
 --------------------------------------------------------------------------------
 --- ColorScheme
