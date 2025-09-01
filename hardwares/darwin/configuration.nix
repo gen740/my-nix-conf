@@ -40,6 +40,7 @@
         "@admin"
       ];
     };
+    optimise.automatic = true;
   };
 
   fonts.packages = with pkgs; [

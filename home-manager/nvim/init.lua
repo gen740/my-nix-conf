@@ -18,10 +18,18 @@ vim.g.netrw_hide = 1
 vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
+
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
+vim.g.loaded_gzip = 0
+vim.g.loaded_zip = 0
+vim.g.loaded_zipPlugin = 0
+vim.g.loaded_tutor_mode_plugin = 0
+vim.g.loaded_2html_plugin = 0
+vim.g.loaded_tarPlugin = 0
+vim.g.loaded_remote_plugins = 0
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',

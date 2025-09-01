@@ -8,8 +8,8 @@ let
       src = pkgs.fetchFromGitHub {
         owner = "neovim";
         repo = "neovim";
-        rev = "c333d64663d3b6e0dd9aa440e433d346af4a3d81";
-        sha256 = "sha256-e4f/hLMYDAfLipKwcrqxw7aJtB/2PePF2ddWWyP730Q=";
+        rev = "c6bfc203f10f325fa6d09d3624fc01e91697bd67";
+        sha256 = "sha256-mD21vueymbeGCo2jMNeU9n6Df3OQPqeAEHxnKpxI+RU=";
       };
       treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
     })
