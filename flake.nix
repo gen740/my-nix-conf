@@ -154,14 +154,6 @@
                   meta.description = "No-op on non-Linux systems";
                 };
           };
-
-          devShells.default = pkgs.mkShell {
-            name = "nix-config";
-            packages = with pkgs; [
-              nixd
-              nixfmt
-            ];
-          };
         };
     };
 }
