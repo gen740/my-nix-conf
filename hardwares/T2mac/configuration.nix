@@ -33,16 +33,7 @@
     openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
   };
 
-  hardware.firmware = [
-    (pkgs.stdenvNoCC.mkDerivation (final: {
-      name = "brcm-firmware";
-      src = ./firmware/brcm;
-      installPhase = ''
-        mkdir -p $out/lib/firmware/brcm
-        cp ${final.src}/* "$out/lib/firmware/brcm"
-      '';
-    }))
-  ];
+  hardware.apple-t2.firmware.enable = true;
 
   security.acme = {
     acceptTerms = true;

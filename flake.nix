@@ -12,7 +12,7 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.url = "github:mkorje/nixos-hardware";
     secrets.url = "path:./scripts/secrets_template";
   };
 
