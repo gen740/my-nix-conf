@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    secrets.url = "path:/Users/gen/.config/nix-secrets";
+    secrets.url = "path:./scripts/secrets_template";
   };
 
   outputs =
@@ -79,7 +79,7 @@
         let
           setupSecrets = pkgs.replaceVars ./scripts/check_and_create_secrets.sh {
             bash = "${pkgs.bash}/bin/bash";
-            secrets_template = "${./scripts/secrets_template.nix}";
+            secrets_template = "${./scripts/secrets_template/flake.nix}";
           };
 
           mkSwitchApp =
@@ -96,7 +96,8 @@
                 echo "Setting up secrets..."
                 sh ${setupSecrets}
                 echo "Switching to ${flakeTarget}..."
-                exec sudo ${command} switch -v -L --show-trace --flake .#${flakeTarget}
+                exec sudo ${command} --override-input secrets "path:$HOME/.config/nix-secrets" \
+                  switch -v -L --show-trace --flake .#${flakeTarget}
               ''}";
               meta.description = description;
             };

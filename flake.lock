@@ -116,15 +116,14 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1756720002,
-        "narHash": "sha256-3KYtawnHLfV2ai6Cl8YfATHb4qqX9dIn+VRDArhmPOo=",
-        "path": "/Users/gen/.config/nix-secrets",
+        "path": "./scripts/secrets_template",
         "type": "path"
       },
       "original": {
-        "path": "/Users/gen/.config/nix-secrets",
+        "path": "./scripts/secrets_template",
         "type": "path"
-      }
+      },
+      "parent": []
     }
   },
   "root": "root",
