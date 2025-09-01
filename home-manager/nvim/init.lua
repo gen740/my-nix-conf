@@ -146,9 +146,9 @@ vim.lsp.enable {
   'cssls',
   'htmlls',
 }
-vim.lsp.inline_completion.enable(true)
-vim.lsp.inlay_hint.enable(false)
-
+vim.lsp.inline_completion.enable()
+vim.lsp.inlay_hint.enable()
+vim.lsp.on_type_formatting.enable()
 
 --------------------------------------------------------------------------------
 --- ColorScheme
