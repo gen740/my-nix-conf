@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
-  # inputs,
+  inputs,
   ...
 }:
 
@@ -30,7 +30,7 @@
       "wheel"
       "networkmanager"
     ];
-    # openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
+    openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
   };
 
   hardware.firmware = [
@@ -78,23 +78,6 @@
     };
 
     gnome.gnome-remote-desktop.enable = true;
-
-    # gitlab = {
-    #   enable = true;
-    #   port = 443;
-    #   https = true;
-    #   databasePasswordFile = pkgs.writeText "dbPassword" inputs.secrets.secrets.services.gitlab.databasePasswordFile;
-    #   initialRootPasswordFile = pkgs.writeText "rootPassword" inputs.secrets.secrets.services.gitlab.initialRootPassword;
-    #   secrets = {
-    #     secretFile = pkgs.writeText "secret" inputs.secrets.secrets.services.gitlab.secrets.secret;
-    #     otpFile = pkgs.writeText "otpsecret" inputs.secrets.secrets.services.gitlab.secrets.otpsecret;
-    #     dbFile = pkgs.writeText "dbsecret" inputs.secrets.secrets.services.gitlab.secrets.dbsecret;
-    #     jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
-    #     activeRecordPrimaryKeyFile = pkgs.writeText "activeRecordPrimaryKey" inputs.secrets.secrets.services.gitlab.secrets.activeRecordPrimaryKeyFile;
-    #     activeRecordDeterministicKeyFile = pkgs.writeText "activeRecordDeterministicKey" inputs.secrets.secrets.services.gitlab.secrets.activeRecordDeterministicKeyFile;
-    #     activeRecordSaltFile = pkgs.writeText "activeRecordSalt" inputs.secrets.secrets.services.gitlab.secrets.activeRecordSaltFile;
-    #   };
-    # };
 
     nginx = {
       enable = true;

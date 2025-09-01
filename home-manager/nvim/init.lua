@@ -13,6 +13,10 @@ vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '�
 vim.opt.pumheight = 15
 vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect', 'popup' }
 
+if vim.fn.executable("pbcopy") == 1 then
+  vim.g.clipboard = "pbcopy"
+end
+
 vim.g.netrw_banner = 0
 vim.g.netrw_hide = 1
 vim.g.netrw_keepj = "keepj"
