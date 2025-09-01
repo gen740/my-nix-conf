@@ -7,6 +7,7 @@ JSON_FILE="./treesitter-parsers.json"
 echo "{ fetchurl }: {"
 
 process_entry() {
+  echo "Processing $1 from $2" > /dev/stderr
   local key="$1" src="$2" location="$3" language="$4"
 
   local repo="${src#https://github.com/}"

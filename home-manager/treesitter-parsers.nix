@@ -1,4 +1,10 @@
 { fetchurl }: {
+  bash = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter/tree-sitter-bash/archive/v0.25.0.tar.gz";
+      hash = "sha256-nWutYY5xK1H/BgUVsM5ocuM3JxSPNb7LiqOtgARMI0g=";
+    };
+  };
   c = {
     src = fetchurl {
       url = "https://github.com/tree-sitter/tree-sitter-c/archive/v0.24.1.tar.gz";
@@ -9,6 +15,33 @@
     src = fetchurl {
       url = "https://github.com/tree-sitter/tree-sitter-cpp/archive/v0.23.4.tar.gz";
       hash = "sha256-eixVr+MCj0EF8ldi6ljMFlN9H1odzZzKkEELPNXUYFE=";
+    };
+  };
+  csv = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-csv/archive/v1.2.0.tar.gz";
+      hash = "sha256-LQsDd9D3swXzBaEfUIehVt5T/eifQIYadVguCs94qzg=";
+    };
+    location = "csv";
+  };
+  tsv = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-csv/archive/v1.2.0.tar.gz";
+      hash = "sha256-LQsDd9D3swXzBaEfUIehVt5T/eifQIYadVguCs94qzg=";
+    };
+    location = "tsv";
+    language = "tsv";
+  };
+  dockerfile = {
+    src = fetchurl {
+      url = "https://github.com/camdencheek/tree-sitter-dockerfile/archive/v0.2.0.tar.gz";
+      hash = "sha256-jL31CDjMVehBqpWFoaCeW4xBRUrjDOCpOnvXGtsUCBg=";
+    };
+  };
+  go = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter/tree-sitter-go/archive/v0.25.0.tar.gz";
+      hash = "sha256-LcJBuXhyxTGV4BuGVCtBGjwaYgHZyUbHjVxgwGO7oe8=";
     };
   };
   typescript = {
@@ -30,12 +63,6 @@
     src = fetchurl {
       url = "https://github.com/tree-sitter/tree-sitter-javascript/archive/v0.23.1.tar.gz";
       hash = "sha256-/FuPWkkabbM8pIVLBEuJNj/3YV9CkZd0Z/UsG5KgwDI=";
-    };
-  };
-  python = {
-    src = fetchurl {
-      url = "https://github.com/tree-sitter/tree-sitter-python/archive/v0.23.6.tar.gz";
-      hash = "sha256-YwoPRezNm2mmage/R9FWjpapyFWi8w4JIcivcSHor5Y=";
     };
   };
   json = {
@@ -80,6 +107,12 @@
       hash = "sha256-kGguEo0Ej78qKhftypR9tx4yb6Cz26QTbgQeCWU4tOs=";
     };
   };
+  make = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-make/archive/v1.1.1.tar.gz";
+      hash = "sha256-Ma/8oGBBYjz6X2pyjLPw8qjrf9AWB+GiaB6h8xg2chE=";
+    };
+  };
   markdown = {
     src = fetchurl {
       url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.0.tar.gz";
@@ -94,5 +127,59 @@
     };
     location = "tree-sitter-markdown-inline";
     language = "markdown_inline";
+  };
+  python = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter/tree-sitter-python/archive/v0.23.6.tar.gz";
+      hash = "sha256-YwoPRezNm2mmage/R9FWjpapyFWi8w4JIcivcSHor5Y=";
+    };
+  };
+  objc = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-objc/archive/v3.0.2.tar.gz";
+      hash = "sha256-GG0D7LmuQc3oXvvig9y+Z8J3//dmqUb379bVH+5yNw0=";
+    };
+  };
+  ruby = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter/tree-sitter-ruby/archive/v0.23.1.tar.gz";
+      hash = "sha256-5+SVd93B8t6OQtQjU7R34zjBW7uVslWOEj3cE9iHifA=";
+    };
+  };
+  rust = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.24.0.tar.gz";
+      hash = "sha256-ecnrBa9OvM6MQHYPxlQF4CVeLVYnAjFLgTpd7BJzuaI=";
+    };
+  };
+  tmux = {
+    src = fetchurl {
+      url = "https://github.com/Freed-Wu/tree-sitter-tmux/archive/0.0.4.tar.gz";
+      hash = "sha256-clmaLr8iIZIY9+P2y+uOawfQUDyBmX2r5Hninfw7vYU=";
+    };
+  };
+  toml = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-toml/archive/v0.7.0.tar.gz";
+      hash = "sha256-fVKn1IhPMHqryHKGfGkITZRFbYr83GOwpzAxqLKQNtw=";
+    };
+  };
+  typst = {
+    src = fetchurl {
+      url = "https://github.com/uben0/tree-sitter-typst/archive/v0.11.0.tar.gz";
+      hash = "sha256-0ZW0IOLxQ8j1lcNH+7qI9kDf56IowEe3qi4zlOk4OcU=";
+    };
+  };
+  vhdl = {
+    src = fetchurl {
+      url = "https://github.com/jpt13653903/tree-sitter-vhdl/archive/v1.3.1.tar.gz";
+      hash = "sha256-ZdNl5Bj+INu1xZ8QEJVb2teJGXnIQKIarWLINvoe1Ik=";
+    };
+  };
+  yaml = {
+    src = fetchurl {
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-yaml/archive/v0.7.1.tar.gz";
+      hash = "sha256-Biah2J1xOkas0FgbdF09z+CzcUJ562z4WP54/4UKWis=";
+    };
   };
 }

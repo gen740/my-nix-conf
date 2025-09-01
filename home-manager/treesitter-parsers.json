@@ -1,9 +1,53 @@
 {
+  "bash": {
+    "src": "https://github.com/tree-sitter/tree-sitter-bash"
+  },
+  "bibtex": {
+    "src": "https://github.com/latex-lsp/tree-sitter-bibtex"
+  },
   "c": {
     "src": "https://github.com/tree-sitter/tree-sitter-c"
   },
   "cpp": {
     "src": "https://github.com/tree-sitter/tree-sitter-cpp"
+  },
+  "cmake": {
+    "src": "https://github.com/uyha/tree-sitter-cmake"
+  },
+  "csv": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-csv",
+    "location": "csv"
+  },
+  "tsv": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-csv",
+    "location": "tsv",
+    "language": "tsv"
+  },
+  "psv": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-psv",
+    "location": "psv",
+    "language": "psv"
+  },
+  "diff": {
+    "src": "https://github.com/the-mikedavis/tree-sitter-diff"
+  },
+  "dockerfile": {
+    "src": "https://github.com/camdencheek/tree-sitter-dockerfile"
+  },
+  "dot": {
+    "src": "https://github.com/rydesun/tree-sitter-dot"
+  },
+  "gitcommit": {
+    "src": "https://github.com/the-mikedavis/tree-sitter-git-commit"
+  },
+  "gitconfig": {
+    "src": "https://github.com/github.com/the-mikedavis/tree-sitter-git-config"
+  },
+  "gitrebase": {
+    "src": "https://github.com/github.com/the-mikedavis/tree-sitter-git-rebase"
+  },
+  "go": {
+    "src": "https://github.com/tree-sitter/tree-sitter-go"
   },
   "typescript": {
     "src": "https://github.com/tree-sitter/tree-sitter-typescript",
@@ -16,9 +60,6 @@
   },
   "javascript": {
     "src": "https://github.com/tree-sitter/tree-sitter-javascript"
-  },
-  "python": {
-    "src": "https://github.com/tree-sitter/tree-sitter-python"
   },
   "json": {
     "src": "https://github.com/tree-sitter/tree-sitter-json"
@@ -41,7 +82,10 @@
   "query": {
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-query"
   },
-  "markdown" : {
+  "make": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-make"
+  },
+  "markdown": {
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
     "location": "tree-sitter-markdown"
   },
@@ -49,5 +93,41 @@
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
     "location": "tree-sitter-markdown-inline",
     "language": "markdown_inline"
+  },
+  "nix": {
+    "src": "https://github.com/nix-community/tree-sitter-nix"
+  },
+  "perl": {
+    "src": "https://github.com/tree-sitter-perl/tree-sitter-perl"
+  },
+  "proto": {
+    "src": "https://github.com/treywood/tree-sitter-proto"
+  },
+  "python": {
+    "src": "https://github.com/tree-sitter/tree-sitter-python"
+  },
+  "objc": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-objc"
+  },
+  "ruby": {
+    "src": "https://github.com/tree-sitter/tree-sitter-ruby"
+  },
+  "rust": {
+    "src": "https://github.com/tree-sitter/tree-sitter-rust"
+  },
+  "tmux": {
+    "src": "https://github.com/Freed-Wu/tree-sitter-tmux"
+  },
+  "toml": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-toml"
+  },
+  "typst": {
+    "src": "https://github.com/uben0/tree-sitter-typst"
+  },
+  "vhdl": {
+    "src": "https://github.com/jpt13653903/tree-sitter-vhdl"
+  },
+  "yaml": {
+    "src": "https://github.com/tree-sitter-grammars/tree-sitter-yaml"
   }
 }

@@ -11,13 +11,17 @@ vim.opt.signcolumn = 'yes'
 vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
-vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noinsert', 'popup' }
+vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect', 'popup' }
 
 vim.g.netrw_banner = 0
 vim.g.netrw_hide = 1
 vim.g.netrw_keepj = "keepj"
 vim.g.netrw_list_hide = [[\(^\.\/\=$\)\|\(^\.\.\/\=$\)\|\(^\.DS_Store$\)]]
 vim.g.netrw_sort_sequence = [[^[^\.].*\/$,^\..*\/$,^[^\.][^\/]*$,^\.[^\/]*$]]
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
 
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
