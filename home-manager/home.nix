@@ -1,29 +1,28 @@
 { pkgs, ... }:
 let
   callModule = module: import module { inherit pkgs; };
-  neovimNightly = (
-    pkgs.neovim-unwrapped.overrideAttrs (old: {
-      version = "v0.12.0-dev";
-      src = pkgs.fetchFromGitHub {
-        owner = "neovim";
-        repo = "neovim";
-        rev = "c6bfc203f10f325fa6d09d3624fc01e91697bd67";
-        sha256 = "sha256-mD21vueymbeGCo2jMNeU9n6Df3OQPqeAEHxnKpxI+RU=";
-      };
-      treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
-    })
-  );
+  neovimNightly = pkgs.neovim-unwrapped.overrideAttrs (_: {
+    version = "v0.12.0-dev";
+    src = pkgs.fetchFromGitHub {
+      owner = "neovim";
+      repo = "neovim";
+      rev = "79bfeecdb483c683e79abca3e9a1bd98b3a30b0f";
+      sha256 = "sha256-Fs5iLjSz+wsDmYXIy9WMdQ+Q7XJtbh+4wMx8Hj5fpSA=";
+    };
+    treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
+  });
 in
 {
   home = {
     stateVersion = "25.11";
     shellAliases = {
-      lsc = "ls --color -F";
+      ls = "${pkgs.coreutils}/bin/ls --color=auto -F";
       vi = "nvim";
     };
     packages = with pkgs; [
       gemini-cli
       claude-code
+      codex
       neovimNightly
     ];
   };
