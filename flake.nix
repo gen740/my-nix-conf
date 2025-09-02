@@ -2,7 +2,7 @@
   description = "Modern Nix flake configuration for gen740's multi-platform setup";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -12,7 +12,7 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:mkorje/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     secrets.url = "path:./scripts/secrets_template";
   };
 
