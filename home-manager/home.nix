@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   callModule = module: import module { inherit pkgs; };
-
   neovimNightly = (
     pkgs.neovim-unwrapped.overrideAttrs (old: {
       version = "v0.12.0-dev";
@@ -14,17 +13,13 @@ let
       treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
     })
   );
-
 in
 {
   home = {
     stateVersion = "25.11";
     shellAliases = {
-      ls = "ls --color -F";
-      dr = "direnv allow";
-      ta = "tmux attach";
+      lsc = "ls --color -F";
       vi = "nvim";
-      nix-run-build = "nix run .#build";
     };
     packages = with pkgs; [
       gemini-cli
@@ -59,7 +54,6 @@ in
 
   programs = {
     gpg.enable = true;
-    ripgrep.enable = true;
     gh = {
       enable = true;
       extensions = with pkgs; [
@@ -81,6 +75,7 @@ in
         ".DS_Store"
       ];
     };
+    ripgrep.enable = true;
     fzf = {
       enable = true;
       defaultCommand = "fd --type f --hidden --follow --exclude .git";
@@ -96,6 +91,7 @@ in
     lazygit.enable = true;
     direnv = {
       enable = true;
+      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
     tmux = callModule ./tmux.nix;
