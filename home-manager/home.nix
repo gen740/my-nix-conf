@@ -24,6 +24,7 @@ in
       claude-code
       codex
       neovimNightly
+      container
     ];
   };
 
