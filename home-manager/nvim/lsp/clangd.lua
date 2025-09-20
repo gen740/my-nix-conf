@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'shell', 'nixpkgs#clang-tools', '-c', 'clangd', '--clang-tidy', '--background-index', '--offset-encoding=utf-8' },
+  cmd = { require("lsps").clangd, '--clang-tidy', '--background-index', '--offset-encoding=utf-8' },
   root_markers = { '.clangd', 'compile_commands.json' },
   filetypes = { 'c', 'cpp' },
 }

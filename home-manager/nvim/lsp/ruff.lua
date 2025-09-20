@@ -1,4 +1,4 @@
 return {
-  cmd = { 'nix', 'shell', 'nixpkgs#ruff', '-c', 'ruff', 'server' },
+  cmd = { require("lsps").ruff, 'server' },
   filetypes = { 'python' },
 }

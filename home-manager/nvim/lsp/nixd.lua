@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#nixd' },
+  cmd = { require("lsps").nixd },
   settings = {
     nixd = {
       nixpkgs = {

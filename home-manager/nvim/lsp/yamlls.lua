@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#yaml-language-server', '--', '--stdio' },
+  cmd = { require("lsps").yamlls, '--stdio' },
   settings = {
     yaml = {
       schemas = {

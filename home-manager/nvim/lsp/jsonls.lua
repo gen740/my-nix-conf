@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'shell', 'nixpkgs#vscode-langservers-extracted', '-c', 'vscode-json-language-server', '--stdio' },
+  cmd = { require("lsps").jsonls, '--stdio' },
   settings = {
     json = {
       format = {

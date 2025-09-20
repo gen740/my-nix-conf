@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#cmake-language-server', },
+  cmd = { require("lsps").cmake },
   filetypes = { 'cmake' },
   init_options = {
     buildDirectory = 'build',

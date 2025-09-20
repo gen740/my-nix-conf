@@ -21,7 +21,7 @@ do
 end
 
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#lua-language-server' },
+  cmd = { require("lsps").lua_ls },
   settings = {
     Lua = {
       runtime = {

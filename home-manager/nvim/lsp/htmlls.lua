@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'shell', 'nixpkgs#vscode-langservers-extracted', '-c', 'vscode-html-language-server', '--stdio' },
+  cmd = { require("lsps").htmlls, '--stdio' },
   filetypes = { 'html' },
   init_options = {
     provideFormatter = true,

@@ -1,0 +1,15 @@
+return {
+  biome = "@biome@",
+  clangd = "@clangd@",
+  cmake = "@cmake@",
+  copilot = "@copilot@",
+  cssls = "@cssls@",
+  htmlls = "@htmlls@",
+  jsonls = "@jsonls@",
+  lua_ls = "@lua_ls@",
+  nixd = "@nixd@",
+  pyright = "@pyright@",
+  ruff = "@ruff@",
+  vtsls = "@vtsls@",
+  yamlls = "@yamlls@",
+}

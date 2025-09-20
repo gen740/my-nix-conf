@@ -35,7 +35,33 @@ in
         source = ./git/git-commitmessage.txt;
       };
       "nvim" = {
-        source = ./nvim;
+        source = pkgs.stdenvNoCC.mkDerivation rec {
+          pname = "my-nvim-config";
+          version = "1.0";
+          src = ./nvim;
+          dontBuild = true;
+          lsps = pkgs.replaceVars ./nvim/lua/lsps.lua {
+            biome = "${pkgs.biome}/bin/biome";
+            clangd = "${pkgs.clang-tools}/bin/clangd";
+            cmake = "${pkgs.cmake-language-server}/bin/cmake-language-server";
+            copilot = "${pkgs.copilot-language-server}/bin/copilot-language-server";
+            cssls = "${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server";
+            htmlls = "${pkgs.vscode-langservers-extracted}/bin/vscode-html-language-server";
+            jsonls = "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server";
+            lua_ls = "${pkgs.lua-language-server}/bin/lua-language-server";
+            nixd = "${pkgs.nixd}/bin/nixd";
+            pyright = "${pkgs.pyright}/bin/pyright";
+            ruff = "${pkgs.ruff}/bin/ruff";
+            vtsls = "${pkgs.vtsls}/bin/vtsls";
+            yamlls = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+          };
+          installPhase = ''
+            mkdir -p $out
+            cp -R $src/* $out
+            chmod -R +w $out
+            cp -f ${lsps} $out/lua/lsps.lua
+          '';
+        };
       };
       "ghostty" = {
         source = ./ghostty;

@@ -1,5 +1,5 @@
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#vtsls', '--', '--stdio' },
+  cmd = { require("lsps").vtsls, '--stdio' },
   filetypes = {
     'typescript',
     'javascript',

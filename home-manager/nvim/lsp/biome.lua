@@ -1,4 +1,4 @@
 return {
-  cmd = { 'nix', 'run', 'nixpkgs#biome', '--', 'lsp-proxy', '--stdio', },
+  cmd = { require("lsps").biome, 'lsp-proxy', '--stdio', },
   filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact', 'vue', 'svelte' },
 }
