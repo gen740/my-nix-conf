@@ -19,6 +19,9 @@ window-padding-y = 4
 window-padding-balance = true
 maximize = true
 
+background-image = /Users/gen/background_image/img.png
+background-image-opacity = 0.10
+background-image-fit = cover
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
