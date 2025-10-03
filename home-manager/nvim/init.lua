@@ -178,6 +178,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+vim.api.nvim_create_user_command('CopilotSignIn', function()
+  local copilot_client = vim.lsp.get_clients({ name = "copilot" })[1]
+  if copilot_client == nil then
+    print("Copilot LSP client is not available for this buffer.")
+    return
+  end
+  --- @diagnostic disable-next-line: param-type-mismatch
+  vim.print(copilot_client.request_sync("signIn", vim.empty_dict(), 1000, 0))
+end, {})
+
 --------------------------------------------------------------------------------
 --- ColorScheme
 --------------------------------------------------------------------------------
