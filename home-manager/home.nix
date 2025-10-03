@@ -76,11 +76,16 @@ in
 
   services.gpg-agent = {
     enable = true;
-    pinentry.package = pkgs.pinentry-tty;
+    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry;
   };
 
   programs = {
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      settings = {
+        no-comments = true;
+      };
+    };
     gh = {
       enable = true;
       extensions = with pkgs; [
