@@ -25,7 +25,10 @@ in
       codex
       neovimNightly
       container
+
       git
+      wget
+      curl
     ];
   };
 
@@ -82,9 +85,6 @@ in
   programs = {
     gpg = {
       enable = true;
-      settings = {
-        no-comments = true;
-      };
     };
     gh = {
       enable = true;
