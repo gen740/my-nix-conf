@@ -25,6 +25,7 @@ in
       codex
       neovimNightly
       container
+      git
     ];
   };
 
