@@ -13,7 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    secrets.url = "path:./scripts/secrets_template";
   };
 
   outputs =
@@ -71,16 +70,23 @@
               username = "gen";
             };
           };
+          nixos = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            modules = [
+              home-manager.nixosModules.home-manager
+              ./home-manager
+              ./hardwares/nixos/configuration.nix
+            ];
+            specialArgs = {
+              username = "gen";
+            };
+          };
         };
       };
 
       perSystem =
         { pkgs, system, ... }:
         let
-          setupSecrets = pkgs.replaceVars ./scripts/check_and_create_secrets.sh {
-            bash = "${pkgs.bash}/bin/bash";
-            secrets_template = "${./scripts/secrets_template/flake.nix}";
-          };
 
           mkSwitchApp =
             {
@@ -93,11 +99,8 @@
               type = "app";
               program = "${pkgs.writeShellScript "switch-${name}" ''
                 set -euo pipefail
-                echo "Setting up secrets..."
-                sh ${setupSecrets}
                 echo "Switching to ${flakeTarget}..."
-                exec sudo ${command} --override-input secrets "path:$HOME/.config/nix-secrets" \
-                  switch -v -L --show-trace --flake .#${flakeTarget}
+                exec sudo ${command} switch -v -L --show-trace --flake .#${flakeTarget}
               ''}";
               meta.description = description;
             };
@@ -154,7 +157,31 @@
                   ''}";
                   meta.description = "No-op on non-Linux systems";
                 };
+
+            nixos =
+              if pkgs.stdenv.isLinux then
+                mkSwitchApp {
+                  name = "nixos";
+                  command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
+                  flakeTarget = "nixos";
+                  description = "Switch to NixOS configuration for OrbStack container";
+                }
+              else
+                {
+                  type = "app";
+                  program = "${pkgs.writeShellScript "switch-orbstack-noop" ''
+                    echo "This is not a Linux system. The 'nixos' app is a no-op."
+                  ''}";
+                  meta.description = "No-op on non-Linux systems";
+                };
           };
+
+          checks = {
+            helloTest = pkgs.runCommand "hello-test" { } ''
+              ${pkgs.hello}/bin/hello > $out
+            '';
+          };
+
         };
     };
 }

@@ -3,7 +3,6 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   pkgs,
-  inputs,
   ...
 }:
 
@@ -30,7 +29,7 @@
       "wheel"
       "networkmanager"
     ];
-    openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
+    # openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
   };
 
   hardware.apple-t2.firmware.enable = true;

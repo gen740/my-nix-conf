@@ -6,8 +6,9 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "6d550f3cdbca6091042526a0153e0db18192447e";
-      sha256 = "sha256-fexPHQXI78SnB0bhiV1CgagLjNQsQk++LLb2NdEQLfI=";
+      rev = "07915941014307b054cbbb131369377647b7fb06";
+      sha256 = "sha256-/5UlVU1NLWWPl8pJjxzExJYaf9AAaUQBJz+xMXCEdkY=";
+      # sha256 = pkgs.lib.fakeSha256;
     };
     treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
   });
@@ -54,7 +55,7 @@ in
             jsonls = "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server";
             lua_ls = "${pkgs.lua-language-server}/bin/lua-language-server";
             nixd = "${pkgs.nixd}/bin/nixd";
-            pyright = "${pkgs.pyright}/bin/pyright";
+            pyright = "${pkgs.pyright}/bin/pyright-langserver";
             ruff = "${pkgs.ruff}/bin/ruff";
             vtsls = "${pkgs.vtsls}/bin/vtsls";
             yamlls = "${pkgs.yaml-language-server}/bin/yaml-language-server";
