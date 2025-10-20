@@ -182,6 +182,8 @@
             '';
           };
 
+          formatter = pkgs.nixfmt-tree;
+
         };
     };
 }

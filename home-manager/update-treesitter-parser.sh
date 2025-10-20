@@ -4,7 +4,8 @@ set -euo pipefail
 
 JSON_FILE="./treesitter-parsers.json"
 
-echo "{ fetchurl }: {"
+echo "{ fetchurl }:"
+echo "{"
 
 process_entry() {
   echo "Processing $1 from $2" > /dev/stderr

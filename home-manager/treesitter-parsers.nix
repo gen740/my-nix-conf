@@ -1,4 +1,5 @@
-{ fetchurl }: {
+{ fetchurl }:
+{
   bash = {
     src = fetchurl {
       url = "https://github.com/tree-sitter/tree-sitter-bash/archive/v0.25.0.tar.gz";
