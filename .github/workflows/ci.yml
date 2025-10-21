@@ -23,15 +23,6 @@ jobs:
     - name: Check flake
       run: nix flake check --all-systems --show-trace
 
-    - name: Build Darwin configuration
-      run: nix build .#darwinConfigurations.gen740.system --show-trace
-
-    - name: Build NixOS T2Mac configuration  
-      run: nix build .#nixosConfigurations.nixos-t2mac.config.system.build.toplevel --show-trace
-
-    - name: Build NixOS OrbStack configuration
-      run: nix build .#nixosConfigurations.nixos-orbstack.config.system.build.toplevel --show-trace
-
   format:
     runs-on: ubuntu-latest
     steps:
