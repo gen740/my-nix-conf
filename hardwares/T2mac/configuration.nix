@@ -18,7 +18,10 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
+  # boot.loader.efi.efiSysMountPoint = "/boot";
+
+  networking.hostName = "gen740-nixos";
+  networking.domain = "local";
 
   users.users.gen = {
     isNormalUser = true;
@@ -29,21 +32,12 @@
       "wheel"
       "networkmanager"
     ];
-    # openssh.authorizedKeys.keys = inputs.secrets.secrets.openssh.authorizedKeys.keys;
   };
 
   hardware.apple-t2.firmware.enable = true;
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "54583542+gen740@users.noreply.github.com";
-  };
-
   services = {
-    nix-serve = {
-      enable = true;
-      openFirewall = true;
-    };
+    xserver.enable = false;
     openssh = {
       enable = true;
       ports = [ 22 ];
@@ -52,148 +46,31 @@
         KbdInteractiveAuthentication = true;
         AllowUsers = null;
         UseDns = true;
-        X11Forwarding = true;
+        # X11Forwarding = true;
         PermitRootLogin = "prohibit-password";
       };
     };
-    xserver = {
-      enable = true;
-    };
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-    xrdp = {
-      enable = true;
-      defaultWindowManager = "${pkgs.gnome-session}/bin/gnome-session";
-      openFirewall = true;
-    };
-
-    gnome.gnome-remote-desktop.enable = true;
-
-    nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-      virtualHosts = {
-        localhost = {
-          forceSSL = true;
-          sslCertificate = "/var/lib/acme/localhost/fullchain.pem"; # または自己署名証明書へのパス
-          sslCertificateKey = "/var/lib/acme/localhost/key.pem";
-          locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-        };
-      };
-    };
-
-    samba = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        global = {
-          "workgroup" = "WORKGROUP";
-          "server string" = "smbnix";
-          "netbios name" = "smbnix";
-          "security" = "user";
-          "guest account" = "nobody";
-          "map to guest" = "bad user";
-        };
-        "TM" = {
-          "path" = "/mnt/Shares/TM";
-          "valid users" = "gen";
-          "public" = "no";
-          "writeable" = "yes";
-          "force user" = "gen";
-          "fruit:aapl" = "yes";
-          "fruit:time machine" = "yes";
-          "ea support" = "yes";
-          "create mask" = "0664";
-          "directory mask" = "0775";
-          "vfs objects" = "fruit catia streams_xattr";
-        };
-        "Public" = {
-          "path" = "/mnt/Shares/Public";
-          "browseable" = "yes";
-          "read only" = "no";
-          "guest ok" = "yes";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "gen";
-          "force group" = "wheel";
-        };
-      };
-    };
-    samba-wsdd = {
-      enable = true;
-      openFirewall = true;
-    };
-
-    nfs.server = {
-      enable = true;
-      lockdPort = 4001;
-      mountdPort = 4002;
-      statdPort = 4000;
-      exports = ''
-        /export         0.0.0.0/0(rw,fsid=0,no_subtree_check,no_root_squash) localhost(rw,fsid=0,no_subtree_check)
-        /export/TM      0.0.0.0/0(rw,nohide,insecure,no_subtree_check,no_root_squash) localhost(rw,nohide,insecure,no_subtree_check)
-        /export/Public  0.0.0.0/0(rw,nohide,insecure,no_subtree_check,no_root_squash) localhost(rw,nohide,insecure,no_subtree_check)
-      '';
-    };
   };
+  programs.sway.enable = true;
 
-  fileSystems = {
-    "/export/TM" = {
-      device = "/dev/disk/by-uuid/cfee3d2b-b4a0-48bf-8f65-ded902686ade";
-      fsType = "ext4";
-    };
-    "/mnt/Shares/TM" = {
-      device = "/dev/disk/by-uuid/cfee3d2b-b4a0-48bf-8f65-ded902686ade";
-      fsType = "ext4";
-    };
-    "/export/Public" = {
-      device = "/dev/disk/by-uuid/4223dd76-21af-4d1a-8b94-a3a1f0b55064";
-      fsType = "ext4";
-    };
-    "/mnt/Shares/Public" = {
-      device = "/dev/disk/by-uuid/4223dd76-21af-4d1a-8b94-a3a1f0b55064";
-      fsType = "ext4";
-    };
-  };
+  i18n.inputMethod.enabled = "fcitx5";
+  i18n.inputMethod.fcitx5.addons = [
+    pkgs.fcitx5-mozc
+  ];
 
-  networking.hostName = "gen740-nixos";
-  networking.domain = "local";
+  environment.systemPackages = with pkgs; [
+    waybar
+    wofi
+    swaylock
+    grim
+    slurp
+  ];
 
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [
-      2049
-      111
-      443
-      4000
-      4001
-      4002
-      5000
-      20048
-    ];
-    allowedUDPPorts = [
-      2049
-      111
-      443
-      4000
-      4001
-      4002
-      5000
-      20048
-    ];
-    allowPing = true;
-  };
-
-  systemd.targets.sleep.enable = false;
-  systemd.targets.suspend.enable = false;
-  systemd.targets.hibernate.enable = false;
-  systemd.targets.hybrid-sleep.enable = false;
-  systemd.services.gitlab-backup.environment.BACKUP = "dump";
 
   programs.zsh.enable = true;
   programs.git.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
+  # users.defaultUserShell = pkgs.zsh;
+  #
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
@@ -211,5 +88,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
