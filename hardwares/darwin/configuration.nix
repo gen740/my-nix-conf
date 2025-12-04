@@ -50,7 +50,8 @@
   environment = {
     systemPackages = with pkgs; [
       xquartz
-      container
+      xorg.xauth
+      xorg.xhost
     ];
     launchAgents = {
       "org.nixos.xquartz.startx.plist" = {

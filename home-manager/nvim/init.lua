@@ -12,6 +12,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
 vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect', 'popup' }
+vim.opt.wildignore:append { "*/build/*", "*/.git/*", "*/venv/*", "*/wokdir/*" }
 
 if vim.fn.executable("pbcopy") == 1 then
   vim.g.clipboard = "pbcopy"
@@ -160,6 +161,7 @@ vim.lsp.enable {
   'biome',
   'cssls',
   'htmlls',
+  -- 'vhdlls',
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -174,7 +176,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client.name == 'nixd' then
       vim.lsp.inlay_hint.enable()
     end
-    vim.lsp.on_type_formatting.enable()
   end,
 })
 
@@ -187,6 +188,45 @@ vim.api.nvim_create_user_command('CopilotSignIn', function()
   --- @diagnostic disable-next-line: param-type-mismatch
   vim.print(copilot_client.request_sync("signIn", vim.empty_dict(), 1000, 0))
 end, {})
+
+vim.api.nvim_create_user_command("NixBuild", function(opts)
+  local target = opts.args ~= "" and opts.args or "build"
+  local cmd = { "nix", "run", ".#" .. target, "-L" }
+
+  vim.fn.setqflist({}, "r")
+  vim.fn.setqflist({}, "a", { title = "NixBuild: " .. target })
+
+  vim.fn.jobstart(cmd, {
+    stdout_buffered = true,
+    stderr_buffered = true,
+
+    on_stdout = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.fn.setqflist({}, "a", { lines = { line } })
+          end
+        end
+      end
+    end,
+
+    on_stderr = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            vim.fn.setqflist({}, "a", { lines = { line } })
+          end
+        end
+      end
+    end,
+
+    on_exit = function()
+      vim.cmd("copen")
+    end,
+  })
+end, {
+  nargs = "?",
+})
 
 --------------------------------------------------------------------------------
 --- ColorScheme

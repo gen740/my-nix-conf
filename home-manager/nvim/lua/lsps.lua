@@ -12,4 +12,5 @@ return {
   ruff = "@ruff@",
   vtsls = "@vtsls@",
   yamlls = "@yamlls@",
+  vhdlls = "@vhdlls@",
 }

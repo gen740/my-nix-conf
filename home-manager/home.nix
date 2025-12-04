@@ -54,10 +54,11 @@ in
             jsonls = "${pkgs.vscode-langservers-extracted}/bin/vscode-json-language-server";
             lua_ls = "${pkgs.lua-language-server}/bin/lua-language-server";
             nixd = "${pkgs.nixd}/bin/nixd";
-            pyright = "${pkgs.pyright}/bin/pyright-langserver";
+            pyright = "${pkgs.basedpyright}/bin/basedpyright-langserver";
             ruff = "${pkgs.ruff}/bin/ruff";
             vtsls = "${pkgs.vtsls}/bin/vtsls";
             yamlls = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+            vhdlls = "${pkgs.vhdl-ls}/bin/vhdl_ls";
           };
           installPhase = ''
             mkdir -p $out

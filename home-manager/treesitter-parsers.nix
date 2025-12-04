@@ -2,8 +2,8 @@
 {
   bash = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter/tree-sitter-bash/archive/v0.25.0.tar.gz";
-      hash = "sha256-nWutYY5xK1H/BgUVsM5ocuM3JxSPNb7LiqOtgARMI0g=";
+      url = "https://github.com/tree-sitter/tree-sitter-bash/archive/v0.25.1.tar.gz";
+      hash = "sha256-LnhadhIltsQzQQ75x7Y8+wpOg6NaGeDyrsFAtCwGtS0=";
     };
   };
   c = {
@@ -32,6 +32,12 @@
     };
     location = "tsv";
     language = "tsv";
+  };
+  diff = {
+    src = fetchurl {
+      url = "https://github.com/the-mikedavis/tree-sitter-diff/archive/v0.1.0.tar.gz";
+      hash = "sha256-DQQUrIc8MxVLRY9NYv4JaqlmOS/0FpIKCMVinHZartM=";
+    };
   };
   dockerfile = {
     src = fetchurl {
@@ -104,8 +110,8 @@
   };
   query = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-query/archive/v0.7.0.tar.gz";
-      hash = "sha256-eShYR+g1Dun+H29snrZLwUMg9w97m2UDcZP8WPJjhhM=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-query/archive/v0.8.0.tar.gz";
+      hash = "sha256-wrI7mlTP/MmZ3tSl05SdrzOL67eUXeziKfgyMy5uan0=";
     };
   };
   make = {
@@ -179,8 +185,8 @@
   };
   yaml = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-yaml/archive/v0.7.1.tar.gz";
-      hash = "sha256-Biah2J1xOkas0FgbdF09z+CzcUJ562z4WP54/4UKWis=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-yaml/archive/v0.7.2.tar.gz";
+      hash = "sha256-rq/1cxu4tmxwVMiu0zzV7epfTNKscWVPP2wrogc9j6w=";
     };
   };
 }
