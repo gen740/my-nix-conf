@@ -30,10 +30,6 @@
       cmd = ''nvim -d -c "4wincmd w | wincmd J" "$LOCAL" "$BASE" "$REMOTE"  "$MERGED"'';
       keepBackup = false;
     };
-    commit = {
-      verbose = true;
-      template = "~/.config/git/git-commitmessage.txt";
-    };
     core = {
       hooksPath = "~/.config/git/hooks";
     };
