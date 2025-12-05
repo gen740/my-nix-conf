@@ -1,0 +1,53 @@
+#!/bin/sh
+
+MSG_FILE="$1"
+SOURCE="$2"
+
+if [ -n "$SOURCE" ]; then
+  exit 0
+fi
+
+if git diff --cached --quiet; then
+  exit 0
+fi
+
+
+prompt="
+Please generate a git commit message from the staged diff below.
+
+Requirements
+ • Follow Conventional Commits format:
+ • Header: type(scope): subject
+ • Optional body and/or footer are allowed.
+ • Use present tense, imperative mood in the header.
+ • Prefer the smallest correct scope; omit scope if unclear.
+ • Keep the header ≤ 72 characters.
+ • Body (if present): wrap lines at ~72 chars; explain what and why, not how.
+ • Footer (if present): use for BREAKING CHANGE or issue references (e.g., Refs: #123).
+ • Do not include explanations, markdown, quotes, or extra text outside the message.
+ • If uncertainty exists, choose the most informative yet safe wording.
+ • If multiple logical changes exist, summarize the dominant one.
+ • If no meaningful change is detected, output: chore: no-op
+
+Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+
+Context (last 10 commits):
+$(git --no-pager log -10 --oneline)
+
+Staged diff:
+$(git diff --cached)
+
+Output
+ • The commit message only (header + optional body/footer).
+ • Optional alternative messages may be included as commented-out lines starting with #.
+"
+
+if command -v gemini >/dev/null 2>&1; then
+  COMMIT_MSG="$(gemini -m gemini-2.0-flash "${prompt}")"
+
+  if [ -n "$COMMIT_MSG" ]; then
+    echo "$COMMIT_MSG" > "$MSG_FILE"
+  fi
+fi
+
+exit 0

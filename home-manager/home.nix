@@ -35,8 +35,8 @@ in
   xdg = {
     enable = true;
     configFile = {
-      "git/git-commitmessage.txt" = {
-        source = ./git/git-commitmessage.txt;
+      "git/hooks/prepare-commit-msg" = {
+        source = ./git/hooks/prepare-commit-msg;
       };
       "nvim" = {
         source = pkgs.stdenvNoCC.mkDerivation rec {
