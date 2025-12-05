@@ -34,6 +34,9 @@
       verbose = true;
       template = "~/.config/git/git-commitmessage.txt";
     };
+    core = {
+      hooksPath = "~/.config/git/hooks";
+    };
   };
   signing = {
     signer = "gpg";

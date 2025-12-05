@@ -5,7 +5,7 @@ local function skim_forward_sync()
 
   local cmd = string.format(
     '$(nix path-info nixpkgs\\#skimpdf)/Applications/Skim.app/Contents/SharedSupport/displayline ' ..
-    '-r -b %d %q %q',
+    '-r -b -g %d %q %q',
     line, pdffile, texfile
   )
 
