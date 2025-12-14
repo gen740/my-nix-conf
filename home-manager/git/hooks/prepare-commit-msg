@@ -43,7 +43,7 @@ Output
 "
 
 if command -v gemini >/dev/null 2>&1; then
-  COMMIT_MSG="$(gemini -m gemini-2.0-flash "${prompt}")"
+  COMMIT_MSG="$(gemini -m gemini-2.5-pro "${prompt}")"
 
   if [ -n "$COMMIT_MSG" ]; then
     echo "$COMMIT_MSG" > "$MSG_FILE"

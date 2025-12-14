@@ -31,6 +31,8 @@
       }
       compdef _nix nix
     fi
+
+    [[ -o login && -o interactive  && -z "$TMUX" ]] && exec tmux new -A -s main
   '';
   envExtra = ''
     unsetopt global_rcs

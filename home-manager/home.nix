@@ -29,6 +29,13 @@ in
       git
       wget
       curl
+
+      libarchive
+      gzip
+      bzip2
+      xz
+      gnutar
+      zstd
     ];
   };
 
