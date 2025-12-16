@@ -32,7 +32,9 @@
       compdef _nix nix
     fi
 
-    [[ -o login && -o interactive  && -z "$TMUX" ]] && exec tmux new -A -s main
+    export PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:$PATH
+
+    [[ -o login && -o interactive  && -z "$TMUX" && -z "$NO_TMUX" ]] && exec tmux new -A -s main
   '';
   envExtra = ''
     unsetopt global_rcs

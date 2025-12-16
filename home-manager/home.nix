@@ -19,6 +19,7 @@ in
     shellAliases = {
       ls = "${pkgs.coreutils}/bin/ls --color=auto -F";
       vi = "nvim";
+      ghostty = "/Applications/Ghostty.app/Contents/MacOS/ghostty";
     };
     packages = with pkgs; [
       gemini-cli

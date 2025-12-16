@@ -16,6 +16,7 @@
     set -g pane-active-border-style fg=blue
     set -g default-terminal "screen-256color"
     set -g set-clipboard on
+    # set -g default-command 'sh -lc "${pkgs.fastfetch}/bin/fastfetch; exec $SHELL -l"'
     set-window-option -g mode-keys vi
     bind -T copy-mode-vi v send -X begin-selection
     bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel pbcopy
