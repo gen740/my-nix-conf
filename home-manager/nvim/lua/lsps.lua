@@ -13,4 +13,5 @@ return {
   vtsls = "@vtsls@",
   yamlls = "@yamlls@",
   vhdlls = "@vhdlls@",
+  texlab = "@texlab@",
 }

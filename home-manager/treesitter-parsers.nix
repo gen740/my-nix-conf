@@ -104,8 +104,8 @@
   };
   vimdoc = {
     src = fetchurl {
-      url = "https://github.com/neovim/tree-sitter-vimdoc/archive/v4.0.0.tar.gz";
-      hash = "sha256-gJZ5TA8JCy10t7/5RUisG+MoW5Kex0+Dm9mz/09Mags=";
+      url = "https://github.com/neovim/tree-sitter-vimdoc/archive/v4.1.0.tar.gz";
+      hash = "sha256-Ag6PEX9kjIaX/KlnmVw0LpLb2B2rE3oRXMdVUgf7yE8=";
     };
   };
   query = {

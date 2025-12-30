@@ -2,9 +2,6 @@
   "bash": {
     "src": "https://github.com/tree-sitter/tree-sitter-bash"
   },
-  "bibtex": {
-    "src": "https://github.com/latex-lsp/tree-sitter-bibtex"
-  },
   "c": {
     "src": "https://github.com/tree-sitter/tree-sitter-c"
   },
@@ -22,11 +19,6 @@
     "src": "https://github.com/tree-sitter-grammars/tree-sitter-csv",
     "location": "tsv",
     "language": "tsv"
-  },
-  "psv": {
-    "src": "https://github.com/tree-sitter-grammars/tree-sitter-psv",
-    "location": "psv",
-    "language": "psv"
   },
   "diff": {
     "src": "https://github.com/the-mikedavis/tree-sitter-diff"

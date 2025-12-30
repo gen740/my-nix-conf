@@ -15,7 +15,7 @@ let
 in
 {
   home = {
-    stateVersion = "25.11";
+    stateVersion = "26.05";
     shellAliases = {
       ls = "${pkgs.coreutils}/bin/ls --color=auto -F";
       vi = "nvim";
@@ -67,6 +67,7 @@ in
             vtsls = "${pkgs.vtsls}/bin/vtsls";
             yamlls = "${pkgs.yaml-language-server}/bin/yaml-language-server";
             vhdlls = "${pkgs.vhdl-ls}/bin/vhdl_ls";
+            texlab = "${pkgs.texlab}/bin/texlab";
           };
           installPhase = ''
             mkdir -p $out

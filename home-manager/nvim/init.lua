@@ -161,6 +161,7 @@ vim.lsp.enable {
   'biome',
   'cssls',
   'htmlls',
+  'texlab',
   -- 'vhdlls',
 }
 

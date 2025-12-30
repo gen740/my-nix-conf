@@ -79,4 +79,5 @@
   };
   enableCompletion = true;
   completionInit = "autoload -U compinit && compinit -u";
+  # dotDir = "${config.xdg.configHome}/zsh"
 }
