@@ -174,9 +174,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client.name == 'copilot' then
       vim.lsp.inline_completion.enable()
     end
-    if client.name == 'nixd' then
-      vim.lsp.inlay_hint.enable()
-    end
+    vim.lsp.inlay_hint.enable(false)
   end,
 })
 

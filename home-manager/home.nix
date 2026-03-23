@@ -37,6 +37,8 @@ in
       xz
       gnutar
       zstd
+
+      comma
     ];
   };
 
@@ -99,7 +101,7 @@ in
     gh = {
       enable = true;
       extensions = with pkgs; [
-        gh-copilot
+        github-copilot-cli
       ];
       settings = {
         git_protocol = "ssh";
