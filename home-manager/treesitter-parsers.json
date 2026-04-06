@@ -89,9 +89,6 @@
   "nix": {
     "src": "https://github.com/nix-community/tree-sitter-nix"
   },
-  "perl": {
-    "src": "https://github.com/tree-sitter-perl/tree-sitter-perl"
-  },
   "proto": {
     "src": "https://github.com/treywood/tree-sitter-proto"
   },

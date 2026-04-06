@@ -92,14 +92,14 @@
   };
   lua = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-lua/archive/v0.4.0.tar.gz";
-      hash = "sha256-sJd6ztSmO7dfJnJXh+BHuPX0oJJxLIQOpwcHZdQElVk=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-lua/archive/v0.5.0.tar.gz";
+      hash = "sha256-zwG5P0thuWptJ5Qs8o7tpMvOfVA8O+93Ookws9d4otk=";
     };
   };
   vim = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-vim/archive/v0.7.0.tar.gz";
-      hash = "sha256-ROq8MRJ8T+rNoZ8qBaV4gnISj/VhzgEJOot6U6rcx7I=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-vim/archive/v0.8.1.tar.gz";
+      hash = "sha256-k8r7mgJpQgNiRUrOcloRj/HD4I3N/cIoqoYzS1TVPCo=";
     };
   };
   vimdoc = {
@@ -122,15 +122,15 @@
   };
   markdown = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.1.tar.gz";
-      hash = "sha256-rK/+WlS0iQ8aCCrWswm2ALeS6T/G7ikD0CIlfVsV4hY=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.3.tar.gz";
+      hash = "sha256-34RbGrfHwWPsV9f6FxcMkrBL4Zm92rAlI2Nu/sUiSrY=";
     };
     location = "tree-sitter-markdown";
   };
   markdown_inline = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.1.tar.gz";
-      hash = "sha256-rK/+WlS0iQ8aCCrWswm2ALeS6T/G7ikD0CIlfVsV4hY=";
+      url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/archive/v0.5.3.tar.gz";
+      hash = "sha256-34RbGrfHwWPsV9f6FxcMkrBL4Zm92rAlI2Nu/sUiSrY=";
     };
     location = "tree-sitter-markdown-inline";
     language = "markdown_inline";
@@ -155,8 +155,8 @@
   };
   rust = {
     src = fetchurl {
-      url = "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.24.0.tar.gz";
-      hash = "sha256-ecnrBa9OvM6MQHYPxlQF4CVeLVYnAjFLgTpd7BJzuaI=";
+      url = "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.24.2.tar.gz";
+      hash = "sha256-Bh6QpTmlWmqmXc6wrWQlxQqxpuPm1LpDDieV7UVQ8Q4=";
     };
   };
   tmux = {
@@ -179,8 +179,8 @@
   };
   vhdl = {
     src = fetchurl {
-      url = "https://github.com/jpt13653903/tree-sitter-vhdl/archive/v1.3.1.tar.gz";
-      hash = "sha256-ZdNl5Bj+INu1xZ8QEJVb2teJGXnIQKIarWLINvoe1Ik=";
+      url = "https://github.com/jpt13653903/tree-sitter-vhdl/archive/v1.5.0.tar.gz";
+      hash = "sha256-lodMufbSoDtXTj6Ldi1kkuIVSDuIO7toM/uMB6hYO8A=";
     };
   };
   yaml = {

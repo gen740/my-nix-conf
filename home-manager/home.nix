@@ -1,16 +1,16 @@
 { pkgs, ... }:
 let
   callModule = module: import module { inherit pkgs; };
-  neovimNightly = pkgs.neovim-unwrapped.overrideAttrs (_: {
-    version = "v0.12.0-dev";
+  neovimNightly = (pkgs.neovim-unwrapped.override {
+    treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
+  }).overrideAttrs (_: {
+    version = "v0.12.0";
     src = pkgs.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
-      rev = "903335a6d50b020b36d1c4d5e9da362c31439d6e";
-      sha256 = "sha256-AA3Pvn0k9lasHZzfW+raPgfWbR/wRLvVsNOISRoQmOU=";
-      # sha256 = pkgs.lib.fakeSha256;
+      rev = "fc7e5cf6c93fef08effc183087a2c8cc9bf0d75a";
+      sha256 = "sha256-uWhrGAwQ2nnAkyJ46qGkYxJ5K1jtyUIQOAVu3yTlquk=";
     };
-    treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
   });
 in
 {
