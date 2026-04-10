@@ -1,17 +1,48 @@
 { pkgs, ... }:
 let
   callModule = module: import module { inherit pkgs; };
-  neovimNightly = (pkgs.neovim-unwrapped.override {
-    treesitter-parsers = import ./treesitter-parsers.nix { fetchurl = pkgs.fetchurl; };
-  }).overrideAttrs (_: {
-    version = "v0.12.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "fc7e5cf6c93fef08effc183087a2c8cc9bf0d75a";
-      sha256 = "sha256-uWhrGAwQ2nnAkyJ46qGkYxJ5K1jtyUIQOAVu3yTlquk=";
-    };
-  });
+  neovimNightly = (
+    pkgs.neovim-unwrapped.overrideAttrs (old: {
+      treesitter-parsers =
+        old.treesitter-parsers
+        // (with pkgs.tree-sitter.builtGrammars; {
+          bash = tree-sitter-bash;
+          cmake = tree-sitter-cmake;
+          cpp = tree-sitter-cpp;
+          csv = tree-sitter-csv // {
+            location = "csv";
+          };
+          css = tree-sitter-css;
+          diff = tree-sitter-diff;
+          dockerfile = tree-sitter-dockerfile;
+          dot = tree-sitter-dot;
+          gitcommit = tree-sitter-gitcommit;
+          gitconfig = tree-sitter-git-config;
+          gitrebase = tree-sitter-git-rebase;
+          go = tree-sitter-go;
+          html = tree-sitter-html;
+          javascript = tree-sitter-javascript;
+          json = tree-sitter-json;
+          nix = tree-sitter-nix;
+          proto = tree-sitter-proto;
+          python = tree-sitter-python;
+          ruby = tree-sitter-ruby;
+          rust = tree-sitter-rust;
+          toml = tree-sitter-toml;
+          tsv = tree-sitter-csv // {
+            language = "tsv";
+            location = "tsv";
+          };
+          tsx = tree-sitter-tsx // {
+            language = "typescriptreact";
+          };
+          typescript = tree-sitter-typescript;
+          typst = tree-sitter-typst;
+          vhdl = tree-sitter-vhdl;
+          yaml = tree-sitter-yaml;
+        });
+    })
+  );
 in
 {
   home = {
@@ -24,6 +55,7 @@ in
     packages = with pkgs; [
       gemini-cli
       claude-code
+      copilot-cli
       codex
       neovimNightly
 
@@ -39,6 +71,7 @@ in
       zstd
 
       comma
+      kitty
     ];
   };
 
