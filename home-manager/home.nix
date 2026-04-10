@@ -51,7 +51,7 @@ in
     packages = with pkgs; [
       gemini-cli
       claude-code
-      copilot-cli
+      github-copilot-cli
       codex
       neovimNightly
 

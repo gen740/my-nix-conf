@@ -13,37 +13,62 @@ fi
 
 
 prompt="
-Please generate a git commit message from the staged diff below.
+Generate a git commit message strictly from the staged diff.
 
-Requirements
- • Follow Conventional Commits format:
- • Header: type(scope): subject
- • Optional body and/or footer are allowed.
- • Use present tense, imperative mood in the header.
- • Prefer the smallest correct scope; omit scope if unclear.
- • Keep the header ≤ 72 characters.
- • Body (if present): wrap lines at ~72 chars; explain what and why, not how.
- • Footer (if present): use for BREAKING CHANGE or issue references (e.g., Refs: #123).
- • Do not include explanations, markdown, quotes, or extra text outside the message.
- • If uncertainty exists, choose the most informative yet safe wording.
- • If multiple logical changes exist, summarize the dominant one.
- • If no meaningful change is detected, output: chore: no-op
+=== FORMAT (Conventional Commits) ===
+<type>(<scope>): <subject>
 
-Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+[optional body]
 
-Context (last 10 commits):
+[optional footer]
+
+=== HARD CONSTRAINTS ===
+- Output ONLY the commit message. No explanations, no quotes, no markdown.
+- Header MUST be ≤ 72 characters.
+- Use imperative mood (e.g., 'add', 'fix', not 'added', 'fixes').
+- Use present tense.
+- Scope:
+  - Use the smallest precise scope derived from file paths or module names.
+  - Omit scope if unclear.
+- Type MUST be one of:
+  feat, fix, docs, style, refactor, perf, test, build, ci, chore
+
+=== SEMANTIC RULES ===
+- Prioritize WHAT and WHY over HOW.
+- If multiple changes exist:
+  - Select the dominant logical change.
+  - Ignore minor or incidental edits.
+- If change is unclear:
+  - Choose the safest, most descriptive interpretation.
+- If no meaningful change:
+  - Output exactly: chore: no-op
+
+=== BODY RULES (optional) ===
+- Include ONLY if necessary for clarity.
+- Wrap at ≤ 72 characters per line.
+- Explain intent, rationale, or impact (NOT implementation details).
+
+=== FOOTER RULES (optional) ===
+- Use ONLY for:
+  - BREAKING CHANGE:
+  - Refs: #<issue>
+- Follow Conventional Commits footer syntax strictly.
+
+=== CONTEXT ===
+Recent commits (for style consistency only; do NOT copy wording):
 $(git --no-pager log -10 --oneline)
 
+=== INPUT ===
 Staged diff:
 $(git diff --cached)
 
-Output
- • The commit message only (header + optional body/footer).
- • Optional alternative messages may be included as commented-out lines starting with #.
+=== OUTPUT ===
+- Single commit message.
+- Optional alternatives MAY be included ONLY as commented lines starting with '#'.
 "
 
 if command -v gemini >/dev/null 2>&1; then
-  COMMIT_MSG="$(gemini -m gemini-2.5-flash-lite "${prompt}")"
+  COMMIT_MSG="$(gemini "${prompt}")"
 
   if [ -n "$COMMIT_MSG" ]; then
     echo "$COMMIT_MSG" > "$MSG_FILE"
