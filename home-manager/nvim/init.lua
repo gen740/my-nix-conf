@@ -100,7 +100,6 @@ for mode, keys in pairs {
         end,
       }
     end,
-
     ['<space>e'] = vim.diagnostic.open_float,
     ['[d'] = function() vim.diagnostic.jump { count = -1, float = true } end,
     [']d'] = function() vim.diagnostic.jump { count = 1, float = true } end,
@@ -136,23 +135,15 @@ end
 --------------------------------------------------------------------------------
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
-    if client:supports_method('textDocument/completion') then
-      if client.server_capabilities.completionProvider ~= nil then
-        local chars = {}
-        for i = 32, 126 do
-          table.insert(chars, string.char(i))
-        end
-        client.server_capabilities.completionProvider.triggerCharacters = chars
-      end
-      vim.lsp.completion.enable(true, client.id, bufnr, {
-        autotrigger = true,
-        convert = function(item)
-          return { abbr = item.label:gsub('%b()', '') }
-        end,
-      })
+    if not client:supports_method('textDocument/completion') then
+      return
     end
+    vim.lsp.completion.enable(true, client.id, bufnr, {
+      autotrigger = true,
+    })
   end,
 })
+
 vim.lsp.enable {
   'nixd',
   'lua_ls',
@@ -168,7 +159,6 @@ vim.lsp.enable {
   'cssls',
   'htmlls',
   'texlab',
-  -- 'vhdlls',
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -180,7 +170,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client.name == 'copilot' then
       vim.lsp.inline_completion.enable()
     end
-    vim.lsp.inlay_hint.enable(false)
   end,
 })
 
@@ -194,47 +183,7 @@ vim.api.nvim_create_user_command('CopilotSignIn', function()
   vim.print(copilot_client.request_sync("signIn", vim.empty_dict(), 1000, 0))
 end, {})
 
-vim.api.nvim_create_user_command("NixBuild", function(opts)
-  local target = opts.args ~= "" and opts.args or "build"
-  local cmd = { "nix", "run", ".#" .. target, "-L" }
-
-  vim.fn.setqflist({}, "r")
-  vim.fn.setqflist({}, "a", { title = "NixBuild: " .. target })
-
-  vim.fn.jobstart(cmd, {
-    stdout_buffered = true,
-    stderr_buffered = true,
-
-    on_stdout = function(_, data)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            vim.fn.setqflist({}, "a", { lines = { line } })
-          end
-        end
-      end
-    end,
-
-    on_stderr = function(_, data)
-      if data then
-        for _, line in ipairs(data) do
-          if line ~= "" then
-            vim.fn.setqflist({}, "a", { lines = { line } })
-          end
-        end
-      end
-    end,
-
-    on_exit = function()
-      vim.cmd("copen")
-    end,
-  })
-end, {
-  nargs = "?",
-})
-
 --------------------------------------------------------------------------------
 --- ColorScheme
 --------------------------------------------------------------------------------
 vim.cmd.colorscheme "retrobox"
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
