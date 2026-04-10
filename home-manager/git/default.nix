@@ -16,11 +16,10 @@
     };
     diff = {
       colorMoved = "default";
-      tool = "nvimdiff";
+      tool = "nvim_difftool";
     };
-    "difftool \"nvimdiff\"" = {
-      prompt = true;
-      cmd = ''nvim -R -d -c "wincmd l" -d "$LOCAL" "$REMOTE"'';
+    "difftool \"nvim_difftool\"" = {
+      cmd = ''nvim -c "packadd nvim.difftool" -d "$LOCAL" "$REMOTE"'';
     };
     merge = {
       conflictstyle = "diff3";
