@@ -17,8 +17,8 @@ let
           dockerfile = tree-sitter-dockerfile;
           dot = tree-sitter-dot;
           gitcommit = tree-sitter-gitcommit;
-          gitconfig = tree-sitter-git-config;
-          gitrebase = tree-sitter-git-rebase;
+          git_config = tree-sitter-git-config;
+          git_rebase = tree-sitter-git-rebase;
           go = tree-sitter-go;
           html = tree-sitter-html;
           javascript = tree-sitter-javascript;
@@ -29,10 +29,6 @@ let
           ruby = tree-sitter-ruby;
           rust = tree-sitter-rust;
           toml = tree-sitter-toml;
-          tsv = tree-sitter-csv // {
-            language = "tsv";
-            location = "tsv";
-          };
           tsx = tree-sitter-tsx // {
             language = "typescriptreact";
           };

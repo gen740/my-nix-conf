@@ -47,6 +47,10 @@ vim.g.loaded_tutor_mode_plugin = 0
 vim.g.loaded_tarPlugin = 0
 vim.g.loaded_remote_plugins = 0
 
+vim.treesitter.language.register('git_config', 'gitconfig')
+vim.treesitter.language.register('git_rebase', 'gitrebase')
+vim.treesitter.language.register('csv', 'tsv')
+
 vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '*',
   callback = function()
