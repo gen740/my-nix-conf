@@ -133,11 +133,37 @@ end
 --------------------------------------------------------------------------------
 --- LSP Settings
 --------------------------------------------------------------------------------
+local function extend_completion_triggers(client)
+  if client.name ~= 'clangd' then
+    return
+  end
+
+  local provider = client.server_capabilities.completionProvider
+  if provider == nil then
+    return
+  end
+
+  local chars = provider.triggerCharacters or {}
+  local seen = {}
+  for _, char in ipairs(chars) do
+    seen[char] = true
+  end
+
+  for char in ("_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"):gmatch(".") do
+    if not seen[char] then
+      table.insert(chars, char)
+    end
+  end
+
+  provider.triggerCharacters = chars
+end
+
 vim.lsp.config('*', {
   on_attach = function(client, bufnr)
     if not client:supports_method('textDocument/completion') then
       return
     end
+    extend_completion_triggers(client)
     vim.lsp.completion.enable(true, client.id, bufnr, {
       autotrigger = true,
     })
