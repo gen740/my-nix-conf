@@ -1,4 +1,5 @@
 vim.cmd("packadd nvim.undotree")
+vim.cmd("packadd nohlsearch")
 
 --------------------------------------------------------------------------------
 --- Basic Settings
@@ -14,7 +15,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', extends = '›', precedes = '‹' }
 vim.opt.pumheight = 15
 vim.opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noselect', 'popup' }
-vim.opt.wildignore:append { "*/build/*", "*/.git/*", "*/venv/*", "*/wokdir/*" }
+vim.opt.wildignore:append { "*/build/*", "*/.git/*", "*/venv/*", "*/workdir/*" }
 
 if vim.fn.executable("pbcopy") == 1 then
   vim.g.clipboard = "pbcopy"
@@ -42,33 +43,10 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
-vim.g.loaded_gzip = 0
-vim.g.loaded_zip = 0
-vim.g.loaded_zipPlugin = 0
-vim.g.loaded_tutor_mode_plugin = 0
-vim.g.loaded_tarPlugin = 0
-vim.g.loaded_remote_plugins = 0
 
 vim.treesitter.language.register('git_config', 'gitconfig')
 vim.treesitter.language.register('git_rebase', 'gitrebase')
 vim.treesitter.language.register('csv', 'tsv')
-
-vim.api.nvim_create_autocmd('TermOpen', {
-  pattern = '*',
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.scrolloff = 0
-  end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'netrw',
-  callback = function()
-    vim.wo.number = true
-    vim.wo.relativenumber = true
-  end,
-})
 
 --------------------------------------------------------------------------------
 --- Keymaps
@@ -134,10 +112,6 @@ end
 --- LSP Settings
 --------------------------------------------------------------------------------
 local function extend_completion_triggers(client)
-  if client.name ~= 'clangd' then
-    return
-  end
-
   local provider = client.server_capabilities.completionProvider
   if provider == nil then
     return
@@ -185,6 +159,7 @@ vim.lsp.enable {
   'cssls',
   'htmlls',
   'texlab',
+  'vhdlls',
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
